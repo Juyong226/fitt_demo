@@ -55,7 +55,7 @@ class WorkoutServiceTest {
         // when
         List<WorkoutResponseDto> result = workoutService.findAll(requestDto);
 
-        // then
+        // then (클래스 단위로 테스트 할 시 expected 값을 14로 변경해야 성공)
         assertEquals(13, result.size());
     }
 
@@ -110,8 +110,9 @@ class WorkoutServiceTest {
 
         // when
         workoutService.remove(workoutId);
+        WorkoutResponseDto result = workoutService.find(workoutId);
 
         // then
-        assertThrows(IllegalStateException.class, () -> workoutService.find(workoutId));
+        assertEquals(null, result);
     }
 }

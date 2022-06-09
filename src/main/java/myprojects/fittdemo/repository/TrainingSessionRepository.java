@@ -23,10 +23,10 @@ public class TrainingSessionRepository {
     public TrainingSession findWithFetch(Long trainingSessionId) {
         if (findOne(trainingSessionId) != null) {
             return em.createQuery(
-                            "select t from TrainingSession t" +
-                                    " join fetch t.sessionWorkouts sw" +
-                                    " join fetch sw.workout w" +
-                                    " where t.id = :trainingSessionId", TrainingSession.class)
+                    "select distinct t from TrainingSession t" +
+                            " join fetch t.sessionWorkouts sw" +
+                            " join fetch sw.workout w" +
+                            " where t.id = :trainingSessionId", TrainingSession.class)
                     .setParameter("trainingSessionId", trainingSessionId)
                     .getSingleResult();
         }

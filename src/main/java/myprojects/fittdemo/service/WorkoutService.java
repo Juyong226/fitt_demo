@@ -114,6 +114,7 @@ public class WorkoutService {
         return responseDtos;
     }
     private WorkoutResponseDto entityToResponseDto(Workout entity) {
+        if (entity == null) return null;
         WorkoutResponseDto workoutResponseDto = new WorkoutResponseDto();
         workoutResponseDto.initialize(entity);
         return workoutResponseDto;

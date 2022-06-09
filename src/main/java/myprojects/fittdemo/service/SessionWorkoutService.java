@@ -26,7 +26,6 @@ public class SessionWorkoutService {
     private final SessionWorkoutRepository sessionWorkoutRepository;
     private final TrainingSessionRepository trainingSessionRepository;
     private final WorkoutRepository workoutRepository;
-    private final RoundRepository roundRepository;
 
     /**
      * SessionWorkout 단건 추가 메서드

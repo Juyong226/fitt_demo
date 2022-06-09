@@ -58,15 +58,15 @@ class TrainingSessionServiceTest {
     @Rollback(value = false)
     public void create_training_session_test_dto() {
         // given
-        TrainingSessionRequestDto tsrd = newRequestDto(4L, "오전 운동");
+        TrainingSessionRequestDto requestDto = newRequestDto(4L, "오전 운동");
 
         // when
-        TrainingSessionResponseDto result = trainingSessionService.create(tsrd);
+        TrainingSessionResponseDto result = trainingSessionService.create(requestDto);
 
         // then
-        assertEquals(tsrd.getRecordId(), result.getRecordId());
-        assertEquals(tsrd.getTitle(), result.getTitle());
-        assertEquals(tsrd.getSessionWorkoutRequestDtos().size(), result.getSessionWorkoutResponseDtos().size());
+        assertEquals(requestDto.getRecordId(), result.getRecordId());
+        assertEquals(requestDto.getTitle(), result.getTitle());
+        assertEquals(requestDto.getSessionWorkoutRequestDtos().size(), result.getSessionWorkoutResponseDtos().size());
     }
 
     @Test
@@ -76,8 +76,8 @@ class TrainingSessionServiceTest {
         Long recordId = 2L;
         String title = "운동 시작 첫 운동";
         TrainingSessionResponseDto created0 = trainingSessionService.create(recordId, title);
-        TrainingSessionRequestDto tsrd = newRequestDto(3L, "오후 운동");
-        TrainingSessionResponseDto created1 = trainingSessionService.create(tsrd);
+        TrainingSessionRequestDto requestDto = newRequestDto(3L, "오후 운동");
+        TrainingSessionResponseDto created1 = trainingSessionService.create(requestDto);
         // when
         TrainingSessionResponseDto result0 =
                 trainingSessionService.find(created0.getSessionWorkoutCount(), created0.getTrainingSessionId());
@@ -95,11 +95,10 @@ class TrainingSessionServiceTest {
     }
 
     @Test
+    @Rollback(value = false)
     public void update_training_session_test() {
         // given
         TrainingSessionResponseDto responseDto = newTrainingSession();
-        em.flush();
-        em.clear();
 
         // when
         trainingSessionService.update(responseDto.getTrainingSessionId(), responseDto.getTitle());
@@ -112,12 +111,6 @@ class TrainingSessionServiceTest {
                 result.getSessionWorkoutResponseDtos().get(0).getRoundResponseDtos().get(0).getWeight());
     }
 
-    private TrainingSessionRequestDto responseToRequest(TrainingSessionResponseDto responseDto) {
-        TrainingSessionRequestDto requestDto = new TrainingSessionRequestDto();
-        requestDto.initialize(responseDto);
-        return requestDto;
-    }
-
     @Test
     public void remove_training_session_test() {
         // given
@@ -125,11 +118,11 @@ class TrainingSessionServiceTest {
 
         // when
         trainingSessionService.remove(responseDto.getTrainingSessionId());
+        TrainingSessionResponseDto result = trainingSessionService.find(
+                responseDto.getSessionWorkoutResponseDtos().size(), responseDto.getTrainingSessionId());
 
         // then
-        assertThrows(IllegalStateException.class,
-                () -> trainingSessionService.find(
-                        responseDto.getSessionWorkoutResponseDtos().size(), responseDto.getTrainingSessionId()));
+        assertEquals(null, result);
 
     }
 

@@ -51,6 +51,7 @@ public class RoundService {
      * */
     public void remove(Long roundId) {
         Round findOne = roundRepository.findOne(roundId);
+//        findOne.detachFromParent();
         roundRepository.remove(findOne);
     }
 
