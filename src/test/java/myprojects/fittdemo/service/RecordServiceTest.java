@@ -1,6 +1,7 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.*;
+import myprojects.fittdemo.controller.dtos.RecordRequestDto;
+import myprojects.fittdemo.controller.dtos.RecordResponseDto;
 import myprojects.fittdemo.domain.Member;
 import myprojects.fittdemo.repository.MemberRepository;
 import myprojects.fittdemo.repository.WorkoutRepository;

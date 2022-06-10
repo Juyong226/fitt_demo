@@ -1,4 +1,4 @@
-package myprojects.fittdemo.controller;
+package myprojects.fittdemo.controller.dtos;
 
 import lombok.Data;
 import myprojects.fittdemo.domain.TrainingSession;

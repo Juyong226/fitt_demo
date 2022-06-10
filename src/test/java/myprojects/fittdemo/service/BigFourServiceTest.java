@@ -1,7 +1,7 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.BigFourRequestDto;
-import myprojects.fittdemo.controller.BigFourResonseDto;
+import myprojects.fittdemo.controller.dtos.BigFourRequestDto;
+import myprojects.fittdemo.controller.dtos.BigFourResonseDto;
 import myprojects.fittdemo.domain.BigFour;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

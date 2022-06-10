@@ -1,7 +1,8 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.*;
+import myprojects.fittdemo.controller.dtos.RecordRequestDto;
+import myprojects.fittdemo.controller.dtos.RecordResponseDto;
 import myprojects.fittdemo.domain.Record;
 import myprojects.fittdemo.domain.*;
 import myprojects.fittdemo.repository.MemberRepository;
@@ -27,10 +28,10 @@ public class RecordService {
      * @return: List<RecordRespondDto> / empty List<RecordResponseDto>
      * */
     @Transactional(readOnly = true)
-    public List<RecordResponseDto> find(Long memberId, String dateOfRecord) {
+    public RecordResponseDto find(Long memberId, LocalDate dateOfRecord) {
         Member member = memberRepository.findOne(memberId);
-        List<Record> findRecords = recordRepository.findByMemberAndDate(member, LocalDate.parse(dateOfRecord));
-        return entitiesToResponseDtos(findRecords);
+        List<Record> findRecords = recordRepository.findByMemberAndDate(member, dateOfRecord);
+        return entitiesToResponseDtos(findRecords).get(0);
     }
 
     /**

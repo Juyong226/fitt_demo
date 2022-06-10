@@ -1,6 +1,6 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.*;
+import myprojects.fittdemo.controller.dtos.*;
 import myprojects.fittdemo.domain.Round;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.WorkoutRequestDto;
-import myprojects.fittdemo.controller.WorkoutResponseDto;
+import myprojects.fittdemo.controller.dtos.WorkoutRequestDto;
+import myprojects.fittdemo.controller.dtos.WorkoutResponseDto;
 import myprojects.fittdemo.domain.MuscleCategory;
 import myprojects.fittdemo.domain.Workout;
 import myprojects.fittdemo.domain.WorkoutMuscleCategory;

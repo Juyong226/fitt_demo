@@ -1,8 +1,7 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.WorkoutRequestDto;
-import myprojects.fittdemo.controller.WorkoutResponseDto;
-import myprojects.fittdemo.domain.TargetMuscle;
+import myprojects.fittdemo.controller.dtos.WorkoutRequestDto;
+import myprojects.fittdemo.controller.dtos.WorkoutResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

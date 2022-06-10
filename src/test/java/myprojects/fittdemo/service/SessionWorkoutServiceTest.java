@@ -1,11 +1,10 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.RoundRequestDto;
-import myprojects.fittdemo.controller.SessionWorkoutRequestDto;
-import myprojects.fittdemo.controller.SessionWorkoutResponseDto;
-import myprojects.fittdemo.controller.TrainingSessionResponseDto;
+import myprojects.fittdemo.controller.dtos.RoundRequestDto;
+import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
+import myprojects.fittdemo.controller.dtos.SessionWorkoutResponseDto;
+import myprojects.fittdemo.controller.dtos.TrainingSessionResponseDto;
 import myprojects.fittdemo.domain.SessionWorkout;
-import myprojects.fittdemo.domain.TrainingSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

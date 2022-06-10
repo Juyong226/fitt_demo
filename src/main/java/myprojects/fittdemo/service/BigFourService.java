@@ -1,8 +1,8 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.BigFourRequestDto;
-import myprojects.fittdemo.controller.BigFourResonseDto;
+import myprojects.fittdemo.controller.dtos.BigFourRequestDto;
+import myprojects.fittdemo.controller.dtos.BigFourResonseDto;
 import myprojects.fittdemo.domain.BigFour;
 import myprojects.fittdemo.domain.Member;
 import myprojects.fittdemo.repository.BigFourRepository;

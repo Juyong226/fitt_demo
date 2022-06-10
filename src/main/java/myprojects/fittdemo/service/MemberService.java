@@ -1,9 +1,9 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.MemberJoinDto;
-import myprojects.fittdemo.controller.MemberRequestDto;
-import myprojects.fittdemo.controller.MemberResponseDto;
+import myprojects.fittdemo.controller.dtos.MemberJoinDto;
+import myprojects.fittdemo.controller.dtos.MemberRequestDto;
+import myprojects.fittdemo.controller.dtos.MemberResponseDto;
 import myprojects.fittdemo.domain.Member;
 import myprojects.fittdemo.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,8 @@ public class MemberService {
      * @return: Long memberId
      * */
     public Long join(MemberJoinDto param) {
-        LocalDate dateOfBirth = LocalDate.of(param.getYear(), param.getMonth(), param.getDayOfMonth());
+        LocalDate dateOfBirth =
+                LocalDate.of(param.getYearOfBirth(), param.getMonthOfBirth(), param.getDateOfMonthOfBirth());
         Member member = Member.create(param.getName(), dateOfBirth, LocalDate.now());
         memberRepository.save(member);
         return member.getId();

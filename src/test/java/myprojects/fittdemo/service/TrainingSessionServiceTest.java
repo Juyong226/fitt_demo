@@ -1,6 +1,9 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.*;
+import myprojects.fittdemo.controller.dtos.RoundRequestDto;
+import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
+import myprojects.fittdemo.controller.dtos.TrainingSessionRequestDto;
+import myprojects.fittdemo.controller.dtos.TrainingSessionResponseDto;
 import myprojects.fittdemo.domain.Member;
 import myprojects.fittdemo.domain.Record;
 import myprojects.fittdemo.domain.Workout;

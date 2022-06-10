@@ -1,8 +1,8 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.RoundRequestDto;
-import myprojects.fittdemo.controller.RoundResponseDto;
+import myprojects.fittdemo.controller.dtos.RoundRequestDto;
+import myprojects.fittdemo.controller.dtos.RoundResponseDto;
 import myprojects.fittdemo.domain.Round;
 import myprojects.fittdemo.domain.SessionWorkout;
 import myprojects.fittdemo.repository.RoundRepository;

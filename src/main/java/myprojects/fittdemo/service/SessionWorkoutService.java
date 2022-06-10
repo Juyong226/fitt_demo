@@ -1,14 +1,13 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.RoundRequestDto;
-import myprojects.fittdemo.controller.SessionWorkoutRequestDto;
-import myprojects.fittdemo.controller.SessionWorkoutResponseDto;
+import myprojects.fittdemo.controller.dtos.RoundRequestDto;
+import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
+import myprojects.fittdemo.controller.dtos.SessionWorkoutResponseDto;
 import myprojects.fittdemo.domain.Round;
 import myprojects.fittdemo.domain.SessionWorkout;
 import myprojects.fittdemo.domain.TrainingSession;
 import myprojects.fittdemo.domain.Workout;
-import myprojects.fittdemo.repository.RoundRepository;
 import myprojects.fittdemo.repository.SessionWorkoutRepository;
 import myprojects.fittdemo.repository.TrainingSessionRepository;
 import myprojects.fittdemo.repository.WorkoutRepository;
