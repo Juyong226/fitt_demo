@@ -34,6 +34,13 @@ public class RecordService {
         return entitiesToResponseDtos(findRecords).get(0);
     }
 
+    @Transactional(readOnly = true)
+    public List<RecordResponseDto> find(Long memberId, String dateOfRecord) {
+        Member member = memberRepository.findOne(memberId);
+        List<Record> findRecords = recordRepository.findByMemberAndDate(member, LocalDate.parse(dateOfRecord));
+        return entitiesToResponseDtos(findRecords);
+    }
+
     /**
      * Record 첫 생성 메서드
      * @param: Long memberId

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="singleRound" class="single-round">
+  <div class="sr-fields" th:object="${round}">
+    <input type="text" th:field="*{roundId}">
+    <input type="text" th:field="*{weight}">
+    <input type="text" th:field="*{reps}">
+  </div>
+  <div class="sr-btns"></div>
+</div>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header('Join::fitt-demo')"></head>
+<body>
+    <div class="main">
+        <div class="join-content">
+            <div class="join-logo">회원 정보 입력</div>
+            <form id="join-form">
+                <div class="row mb-3">
+                    <label for="name" class="col-sm-2 col-form-label">이름</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="nickname" class="col-sm-2 col-form-label">닉네임</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="nickname">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="password" class="col-sm-2 col-form-label">비밀번호</label>
+                    <div class="col-sm-5">
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="dateOfBirth" class="col-sm-2 col-form-label">생년월일</label>
+                    <div class="col-sm-5">
+                        <input type="date" class="form-control" id="dateOfBirth">
+                    </div>
+                </div>
+                <div class="form-btn">
+                    <div class="my-btn">
+                        <button type="sumit" class="btn btn-primary">회원가입</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

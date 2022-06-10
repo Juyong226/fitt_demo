@@ -1,0 +1,65 @@
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.my-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* edited bootStrap */
+.row {
+    justify-content: center;
+}
+
+/* welcome page */
+.welcome-content, .join-content {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-logo, .join-logo {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.welcome-login {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    border: solid 1px #d6dddd;
+    border-radius: 8px;
+}
+
+#login-form, #join-form {
+    width: 100%;
+}
+
+/* join page */
+#join-form {
+    padding: 20px 10px 20px 10px;
+    border: solid 1px #d6dddd;
+    border-radius: 8px;
+}
+
+
