@@ -30,6 +30,8 @@ public class Member {
     private Long id;
 
     private String name;
+    private String nickname;
+    private String password;
     private LocalDate dateOfBirth;
     private LocalDate dateOfJoin;
 
@@ -45,14 +47,18 @@ public class Member {
     /**
      * 정적 생성 메서드
      * */
-    public static Member create(String name, LocalDate dateOfBirth, LocalDate dateOfJoin) {
+    public static Member create(String name, String nickname, String password,
+                                LocalDate dateOfBirth, LocalDate dateOfJoin) {
         Member member = new Member();
-        member.Initialize(name, dateOfBirth, dateOfJoin);
+        member.Initialize(name, nickname, password, dateOfBirth, dateOfJoin);
         return member;
     }
 
-    private void Initialize(String name, LocalDate dateOfBirth, LocalDate dateOfJoin) {
+    private void Initialize(String name, String nickname, String password,
+                            LocalDate dateOfBirth, LocalDate dateOfJoin) {
         this.name = name;
+        this.nickname = nickname;
+        this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.dateOfJoin = dateOfJoin;
     }

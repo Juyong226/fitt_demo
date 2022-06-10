@@ -3,6 +3,7 @@ package myprojects.fittdemo;
 import lombok.RequiredArgsConstructor;
 import myprojects.fittdemo.domain.*;
 import myprojects.fittdemo.domain.Record;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +32,14 @@ public class InitDbForTest {
     static class InitService {
 
         private final EntityManager em;
+        private final PasswordEncoder passwordEncoder;
 
         public void initMemberAndRecord() {
             for (int i=1; i<=9; i++) {
                 String temp = String.valueOf(i);
                 String name = "회원" + temp;
+                String nickname = "닉네임" + temp;
+                String rawPassword = "password" + temp;
                 String dateOfBirth = "199" + temp + "-0" + temp + "-15";
                 String dateOfJoin = "202";
                 if (i<6) {
@@ -43,7 +47,8 @@ public class InitDbForTest {
                 } else {
                     dateOfJoin += "0-0" + temp + "-10";
                 }
-                Member member = Member.create(name, LocalDate.parse(dateOfBirth), LocalDate.parse(dateOfJoin));
+                Member member = Member.create(name, nickname, passwordEncoder.encode(rawPassword),
+                        LocalDate.parse(dateOfBirth), LocalDate.parse(dateOfJoin));
                 em.persist(member);
                 em.persist(Record.create(member));
             }

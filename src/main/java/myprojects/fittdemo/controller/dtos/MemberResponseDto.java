@@ -14,16 +14,18 @@ public class MemberResponseDto {
     private boolean isExist = true;
     private Long memberId;
     private String name;
+    private String nickname;
     private LocalDate dateOfBirth;
     private LocalDate dateOfJoin;
     private List<BigFourResonseDto> bigFourResonseDtos;
 
     public void initialize(Member member) {
-        this.setMemberId(member.getId());
-        this.setName(member.getName());
-        this.setDateOfJoin(member.getDateOfJoin());
-        this.setDateOfBirth(member.getDateOfBirth());
-        this.setBigFourResonseDtos(member.getBigFours());
+        setMemberId(member.getId());
+        setName(member.getName());
+        setNickname(member.getNickname());
+        setDateOfJoin(member.getDateOfJoin());
+        setDateOfBirth(member.getDateOfBirth());
+        setBigFourResonseDtos(member.getBigFours());
     }
 
     private void setBigFourResonseDtos(List<BigFour> bigFours) {

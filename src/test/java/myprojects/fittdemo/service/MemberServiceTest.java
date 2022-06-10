@@ -28,10 +28,17 @@ class MemberServiceTest {
     public void join_test() {
         // given
         MemberJoinDto memberJoinDto = new MemberJoinDto();
-        memberJoinDto.setName("이주용");
-        memberJoinDto.setYear(1993);
-        memberJoinDto.setMonth(02);
-        memberJoinDto.setDayOfMonth(26);
+        String name = "이주용";
+        String nickname = "Bradley";
+        String password = "비밀번호";
+        LocalDate dateOfBirth = LocalDate.of(1993,2,26);
+        memberJoinDto.setName(name);
+        memberJoinDto.setNickname(nickname);
+        memberJoinDto.setPassword(password);
+        memberJoinDto.setDateOfBirth(dateOfBirth);
+//        memberJoinDto.setYearOfBirth(1993);
+//        memberJoinDto.setMonthOfBirth(02);
+//        memberJoinDto.setDateOfBirth(26);
 
         // when
         Long memberId = memberService.join(memberJoinDto);
@@ -79,9 +86,9 @@ class MemberServiceTest {
         Long memberId = 3L;
         MemberRequestDto memberRequestDto = new MemberRequestDto();
         memberRequestDto.setMemberId(memberId);
-        memberRequestDto.setYear(2000);
-        memberRequestDto.setMonth(01);
-        memberRequestDto.setDayOfMonth(01);
+        memberRequestDto.setYearOfBirth(2000);
+        memberRequestDto.setMonthOfBirth(01);
+        memberRequestDto.setDateOfBirth(01);
 
         // when
         MemberResponseDto updated = memberService.update(memberRequestDto);

@@ -33,4 +33,12 @@ public class MemberRepository {
     public void remove(Member member) {
         em.remove(member);
     }
+
+    public List<Member> findByNickname(String nickname) {
+        return em.createQuery(
+                "select m from Member m" +
+                        " where m.nickname = :nickname", Member.class)
+                .setParameter("nickname", nickname)
+                .getResultList();
+    }
 }
