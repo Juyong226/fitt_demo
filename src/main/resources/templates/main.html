@@ -7,17 +7,17 @@
         <div class="welcome-content">
             <div class="welcome-logo">fitt-demo</div>
             <div class="welcome-login">
-                <form id="login-form" action="/members/login">
+                <form id="login-form">
                     <div class="row mb-3">
                         <label for="nickname" class="col-sm-2 col-form-label">닉네임</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="nickname">
+                            <input type="text" class="form-control" id="nickname" name="nickname">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="password" class="col-sm-2 col-form-label">비밀번호</label>
                         <div class="col-sm-5">
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
                     </div>
                     <div class="form-btn">
@@ -25,13 +25,46 @@
                             <a href="/members/join" class="btn btn-primary">회원가입</a>
                         </div>
                         <div class="my-btn">
-                            <button type="submit" class="btn btn-primary" id="login-btn">로그인</button>
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    id="login-btn"
+                                    onclick="checkInput()">로그인</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        function login() {
+            let formData = $('#login-form').serialize();
+            console.log(formData);
+            $.ajax({
+                url: "/api/members/login",
+                data: formData,
+                method: "POST",
+                success: function (response) {
+                    let exception = response.exception;
+                    if (exception.hasException) {
+                        alert(exception.message);
+                    } else {
+                        location.href = response.result;
+                    }
+                }
+            })
+        }
 
+        function checkInput() {
+            let nickname = $('#nickname').val();
+            let password = $('#password').val();
+
+            if (nickname === "" || nickname === undefined
+                || password === "" || password === undefined) {
+                alert("닉네임과 비밀번호를 모두 입력하세요.");
+                return;
+            }
+            login();
+        }
+    </script>
 </body>
 </html>

@@ -6,6 +6,8 @@ import lombok.Data;
 public class MemberRequestDto {
 
     private Long memberId;
+    private String nickname;
+    private String password;
     private int yearOfBirth;
     private int monthOfBirth;
     private int dateOfBirth;

@@ -1,6 +1,7 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import myprojects.fittdemo.controller.dtos.MemberJoinDto;
 import myprojects.fittdemo.controller.dtos.MemberRequestDto;
 import myprojects.fittdemo.controller.dtos.MemberResponseDto;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
@@ -26,18 +28,42 @@ public class MemberService {
      * @param: MemberJoinDto
      * @return: Long memberId
      * */
-    public Long join(MemberJoinDto joinDto) throws IllegalStateException {
-        // 닉네임 중복 검사 비밀번호 인코딩
-        String nickname = joinDto.getNickname();
-        if (!validateMember(nickname)) {
-            throw new IllegalStateException("이미 사용중인 닉네임입니다.");
-        }
+    public Long join(MemberJoinDto joinDto) {
         String password = passwordEncoder.encode(joinDto.getPassword());
-//        LocalDate dateOfBirth =
-//                LocalDate.of(joinDto.getYearOfBirth(), joinDto.getMonthOfBirth(), joinDto.getDateOfBirth());
-        Member member = Member.create(joinDto.getName(), nickname, password, joinDto.getDateOfBirth(), LocalDate.now());
+        LocalDate dateOfBirth = LocalDate.parse(joinDto.getDateOfBirth());
+        Member member = Member.create(joinDto.getName(), joinDto.getNickname(), password, dateOfBirth, LocalDate.now());
         memberRepository.save(member);
         return member.getId();
+    }
+
+    /**
+     * Member 검증 메서드
+     *  - 멤버의 닉네임의 중복 여부를 확인한다.
+     * @param: String nickname
+     * @return: Boolean
+     * */
+    public boolean validateMember(String nickname) throws Exception {
+        if (nickname == null || nickname == "") {
+            log.info("nickname is null !");
+            throw new IllegalStateException("닉네임을 입력해주세요.");
+        }
+        if (memberRepository.findByNickname(nickname).size() > 0) {
+            log.info("nickname is already used !");
+            throw new IllegalStateException("이미 사용중인 닉네임입니다.");
+        }
+        return true;
+    }
+
+    public Long login(MemberRequestDto requestDto) throws Exception {
+        List<Member> findList = memberRepository.findByNickname(requestDto.getNickname());
+        if (findList.size() == 0) {
+            throw new IllegalStateException("존재하지 않는 회원입니다. 닉네임을 확인해주세요.");
+        }
+        Member findOne = findList.get(0);
+        if (passwordEncoder.matches(requestDto.getPassword(), findOne.getPassword()) == false) {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+        return findOne.getId();
     }
 
     public MemberResponseDto find(Long memberId) {
@@ -73,14 +99,6 @@ public class MemberService {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-
-    private boolean validateMember(String nickname) {
-        if (nickname == null) {
-            throw new IllegalStateException("닉네임을 입력해주세요.");
-        }
-        List<Member> result = memberRepository.findByNickname(nickname);
-        return (result.size() == 0);
-    }
 
     private MemberResponseDto entityToResponseDto(Member member) {
         if (member == null) return null;

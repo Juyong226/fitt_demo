@@ -5,38 +5,125 @@
     <div class="main">
         <div class="join-content">
             <div class="join-logo">회원 정보 입력</div>
-            <form id="join-form">
+            <form id="join-form" th:object="${joinForm}">
                 <div class="row mb-3">
-                    <label for="name" class="col-sm-2 col-form-label">이름</label>
+                    <label th:for="name" class="col-sm-2 col-form-label">이름</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" id="name" th:field="*{name}">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="nickname" class="col-sm-2 col-form-label">닉네임</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="nickname">
+                    <label th:for="nickname" class="col-sm-2 col-form-label">닉네임</label>
+                    <div class="col-sm-5" id="nickname-div">
+                        <input type="text" class="form-control" th:field="*{nickname}">
+                    </div>
+                    <div class="my-btn">
+                        <button type="button"
+                                class="btn btn-primary"
+                                onclick="validate()">중복체크</button>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="password" class="col-sm-2 col-form-label">비밀번호</label>
+                    <label th:for="password" class="col-sm-2 col-form-label">비밀번호</label>
                     <div class="col-sm-5">
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" th:field="*{password}">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="dateOfBirth" class="col-sm-2 col-form-label">생년월일</label>
+                    <label th:for="dateOfBirth" class="col-sm-2 col-form-label">생년월일</label>
                     <div class="col-sm-5">
-                        <input type="date" class="form-control" id="dateOfBirth">
+                        <input type="date" class="form-control" th:field="*{dateOfBirth}">
                     </div>
                 </div>
                 <div class="form-btn">
                     <div class="my-btn">
-                        <button type="sumit" class="btn btn-primary">회원가입</button>
+                        <input type="hidden" id="form-flag" value="false">
+                        <button type="button" class="btn btn-primary" onclick="checkInput()">회원가입</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        function validate() {
+            let input_nickname = $('#nickname');
+            let input_form_flag = $('#form-flag');
+            let nickname = input_nickname.val();
+            let p_tag = $('#nickname-div > p');
+            $.ajax({
+                method: "POST",
+                url: "/api/members/validate",
+                data: {nickname: nickname},
+                success: function (response) {
+                    let exception = response.exception;
+                    if (p_tag) {
+                        p_tag.remove();
+                    }
+                    if (exception.hasException) {
+                        input_nickname.val('');
+                        input_nickname.focus();
+                        input_form_flag.val(false);
+                        let html = '<p class="warn">' + exception.message + '</p>';
+                        input_nickname.after(html);
+                    } else {
+                        input_form_flag.val(true);
+                        let html = '<p class="approve">' + response.result + '</p>';
+                        input_nickname.after(html);
+                    }
+                }
+            });
+        }
+
+        function join() {
+            let formData = $('#join-form').serialize();
+            $.ajax({
+                url: "/api/members/join",
+                data: formData,
+                method: "POST",
+                success: function (response) {
+                    location.href = response.result;
+                }
+            })
+        }
+
+        function checkInput() {
+            console.log("checkInput()");
+            let input_name = $('#name');
+            let input_nickname = $('#nickname');
+            let input_password = $('#password');
+            let input_dateOfBirth = $('#dateOfBirth');
+            let input_form_flag = $('#form-flag');
+            let name = input_name.val();
+            let nickname = input_nickname.val();
+            let password = input_password.val();
+            let dateOfBirth = input_dateOfBirth.val();
+            let form_flag = input_form_flag.val();
+
+            if (name === "" || name === undefined
+                || nickname === "" || nickname === undefined
+                || password === "" || password === undefined
+                || dateOfBirth === "" || dateOfBirth === undefined) {
+                alert("모든 정보를 입력해주세요.");
+                return;
+            }
+            // input의 value 값은 String 이다.
+            // 내가 임의로 false 라고 줬다고 해서 그게 boolean 타입이 되는 것이 아니다
+            // 그냥 문자열 "false"가 되는 것
+            if (form_flag === "false") {
+                alert("닉네임 중복체크를 해주세요.");
+                return;
+            }
+            join();
+            resetAll(input_name, input_nickname, input_password, input_dateOfBirth, input_form_flag);
+        }
+
+        function resetAll(name, nickname, password, dateOfBirth, form_flag) {
+            name.val("");
+            nickname.val("");
+            password.val("");
+            dateOfBirth.val("");
+            form_flag.val(false);
+        }
+    </script>
 </body>
 </html>

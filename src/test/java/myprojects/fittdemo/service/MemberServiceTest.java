@@ -35,10 +35,7 @@ class MemberServiceTest {
         memberJoinDto.setName(name);
         memberJoinDto.setNickname(nickname);
         memberJoinDto.setPassword(password);
-        memberJoinDto.setDateOfBirth(dateOfBirth);
-//        memberJoinDto.setYearOfBirth(1993);
-//        memberJoinDto.setMonthOfBirth(02);
-//        memberJoinDto.setDateOfBirth(26);
+        memberJoinDto.setDateOfBirth(dateOfBirth.toString());
 
         // when
         Long memberId = memberService.join(memberJoinDto);
