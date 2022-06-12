@@ -56,6 +56,7 @@
                 data: {nickname: nickname},
                 success: function (response) {
                     let exception = response.exception;
+                    let messageAndRedirection = response.messageAndRedirection;
                     if (p_tag) {
                         p_tag.remove();
                     }
@@ -67,7 +68,7 @@
                         input_nickname.after(html);
                     } else {
                         input_form_flag.val(true);
-                        let html = '<p class="approve">' + response.result + '</p>';
+                        let html = '<p class="approve">' + messageAndRedirection.message + '</p>';
                         input_nickname.after(html);
                     }
                 }
@@ -81,7 +82,7 @@
                 data: formData,
                 method: "POST",
                 success: function (response) {
-                    location.href = response.result;
+                    location.href = response.messageAndRedirection.url;
                 }
             })
         }

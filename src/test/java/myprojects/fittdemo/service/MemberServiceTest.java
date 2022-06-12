@@ -25,7 +25,7 @@ class MemberServiceTest {
 
     @Test
     @Rollback(value = false)
-    public void join_test() {
+    public void join_test() throws Exception {
         // given
         MemberJoinDto memberJoinDto = new MemberJoinDto();
         String name = "이주용";
@@ -46,7 +46,7 @@ class MemberServiceTest {
     }
 
     @Test
-    public void add_big_four_test() {
+    public void add_big_four_test() throws Exception {
         // given
         Long memberId = 2L;
         double squat = 215.5;
@@ -78,7 +78,7 @@ class MemberServiceTest {
     }
 
     @Test
-    public void update_test() {
+    public void update_test() throws Exception {
         // given
         Long memberId = 3L;
         MemberRequestDto memberRequestDto = new MemberRequestDto();
@@ -99,7 +99,7 @@ class MemberServiceTest {
     }
 
     @Test
-    public void withdraw_test() {
+    public void withdraw_test() throws Exception {
         // given
         Long memberId = 4L;
 

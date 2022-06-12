@@ -72,8 +72,8 @@ public class MemberService {
     }
 
     public MemberResponseDto findWithBigFours(Long memberId) {
-        List<Member> members = memberRepository.findWithBigFours(memberId);
-        return entityToResponseDto(members.get(0));
+        List<Member> findList = memberRepository.findWithBigFours(memberId);
+        return entityToResponseDto(findList.get(0));
     }
 
     /**

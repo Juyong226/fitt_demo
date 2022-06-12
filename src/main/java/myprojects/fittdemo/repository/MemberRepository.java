@@ -18,16 +18,24 @@ public class MemberRepository {
     }
 
     public Member findOne(Long memberId) {
-        return em.find(Member.class, memberId);
+        Member member = em.find(Member.class, memberId);
+        if (member == null) {
+            throw new IllegalStateException("존재하지 않는 회원입니다.");
+        }
+        return member;
     }
 
     public List<Member> findWithBigFours(Long memberId) {
-        return em.createQuery(
-                        "select m from Member m" +
-                                " join fetch m.bigFours bf" +
-                                " where m.id = : memberId", Member.class)
-                .setParameter("memberId", memberId)
-                .getResultList();
+        List<Member> memberList = em.createQuery(
+                                    "select m from Member m" +
+                                            " join fetch m.bigFours bf" +
+                                            " where m.id = : memberId", Member.class)
+                                    .setParameter("memberId", memberId)
+                                    .getResultList();
+        if (memberList.size() == 0) {
+            throw new IllegalStateException("존재하지 않는 회원입니다.");
+        }
+        return memberList;
     }
 
     public void remove(Member member) {

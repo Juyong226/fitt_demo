@@ -6,6 +6,9 @@ import myprojects.fittdemo.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,4 +21,9 @@ public class MemberController {
         model.addAttribute("joinForm", new MemberJoinDto());
         return "members/joinForm";
     }
+
+//    @GetMapping("/members/{id}")
+//    public String memberPage(HttpServletRequest request, @PathVariable final Long id, Model model) {
+//        request.getSession()
+//    }
 }

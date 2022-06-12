@@ -16,6 +16,12 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+    cache: false
+
+server:
+  servlet:
+    session:
+      timeout: 43200
 
 logging:
   level:

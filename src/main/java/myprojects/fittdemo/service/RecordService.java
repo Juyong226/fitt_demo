@@ -31,7 +31,10 @@ public class RecordService {
     public RecordResponseDto find(Long memberId, LocalDate dateOfRecord) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, dateOfRecord);
-        return entitiesToResponseDtos(findRecords).get(0);
+        if (findRecords.size() == 1) {
+            return entitiesToResponseDtos(findRecords).get(0);
+        }
+        return null;
     }
 
     @Transactional(readOnly = true)

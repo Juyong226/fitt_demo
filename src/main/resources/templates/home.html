@@ -10,14 +10,14 @@
             </div>
             <div class="content-right" th:if="${login}">
                 <div class="record" th:if="${record}" th:object="${record}">
-                    <div class="record-fields">
+                    <div id="record-fields">
                         <span th:text="*{dateOfRecord}"></span>
                         <span th:text="*{bodyWeight}"></span>
                         <div th:text="*{memo}"></div>
                     </div>
-                    <div class="training-session">
+                    <div id="training-session">
                         <div class="training-sessions" th:if="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
-                            <div class="simple-training-session"
+                            <div id="simple-training-session"
                                  th:each="simple : *{trainingSessionSimpleDtos}">
                                 <span th:text="${simple.trainingSessionId}"></span>
                                 <span th:text="${simple.title}"></span>
@@ -41,5 +41,8 @@
         </div>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
+    <script>
+
+    </script>
 </body>
 </html>
