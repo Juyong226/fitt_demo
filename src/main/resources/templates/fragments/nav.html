@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <nav th:fragment="nav" id="nav">
+    <script defer src="/js/members.js"></script>
+    <span id="session-time"
+          th:text="${#session.getMaxInactiveInterval()}"></span>
     <div class="my-btn">
         <a th:href="@{/members/${session.memberId}}" class="btn btn-primary"}>내정보</a>
     </div>

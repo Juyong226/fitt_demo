@@ -43,33 +43,33 @@ class RecordServiceTest {
         // given
         Long memberId = 1L;
         Member member = memberRepository.findOne(memberId);
-        List<RecordResponseDto> recordFirst = recordService.find(member.getId(), LocalDate.now().toString());
+        RecordResponseDto first = recordService.find(member.getId(), LocalDate.now().toString());
 
         // when
-        recordService.remove(recordFirst.get(0).getRecordId());
-        List<RecordResponseDto> recordSecond = recordService.find(member.getId(), LocalDate.now().toString());
+        recordService.remove(first.getRecordId());
+        RecordResponseDto second = recordService.find(member.getId(), LocalDate.now().toString());
 
         // then
-        assertEquals(0, recordSecond.size());
+        assertEquals(null, second);
     }
 
     @Test
     public void update_state_field_test() {
         // given
         Long memberId = 2L;
-        List<RecordResponseDto> recordOld = recordService.find(memberId, LocalDate.now().toString());
+        RecordResponseDto recordOld = recordService.find(memberId, LocalDate.now().toString());
 
         RecordRequestDto recordRequestDto = new RecordRequestDto();
-        recordRequestDto.setRecordId(recordOld.get(0).getRecordId());
+        recordRequestDto.setRecordId(recordOld.getRecordId());
         recordRequestDto.setBodyWeight(79.5);
         recordRequestDto.setMemo("테스트 중!");
 
         // when
         recordService.update(recordRequestDto);
-        List<RecordResponseDto> recordNew = recordService.find(memberId, LocalDate.now().toString());
+        RecordResponseDto recordNew = recordService.find(memberId, LocalDate.now().toString());
 
         // then
-        assertEquals(recordRequestDto.getClass(), recordNew.get(0).getBodyWeight());
-        assertEquals(recordRequestDto.getMemo(), recordNew.get(0).getMemo());
+        assertEquals(recordRequestDto.getBodyWeight(), recordNew.getBodyWeight());
+        assertEquals(recordRequestDto.getMemo(), recordNew.getMemo());
     }
 }

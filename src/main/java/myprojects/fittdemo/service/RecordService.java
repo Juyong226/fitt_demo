@@ -31,17 +31,14 @@ public class RecordService {
     public RecordResponseDto find(Long memberId, LocalDate dateOfRecord) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, dateOfRecord);
-        if (findRecords.size() == 1) {
-            return entitiesToResponseDtos(findRecords).get(0);
-        }
-        return null;
+        return entitiyToResponseDto(findRecords);
     }
 
     @Transactional(readOnly = true)
-    public List<RecordResponseDto> find(Long memberId, String dateOfRecord) {
+    public RecordResponseDto find(Long memberId, String dateOfRecord) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, LocalDate.parse(dateOfRecord));
-        return entitiesToResponseDtos(findRecords);
+        return entitiyToResponseDto(findRecords);
     }
 
     /**
@@ -77,15 +74,14 @@ public class RecordService {
 
 
     //------------------------------------------------------------------------------------------------------------------
-    private List<RecordResponseDto> entitiesToResponseDtos(List<Record> findRecords) {
-        List<RecordResponseDto> responseDtos = new ArrayList<>();
+    private RecordResponseDto entitiyToResponseDto(List<Record> findRecords) {
         if (!findRecords.isEmpty()) {
+            RecordResponseDto responseDto = null;
             for (Record findRecord : findRecords) {
-                RecordResponseDto recordResponseDto = entityToResponseDto(findRecord);
-                responseDtos.add(recordResponseDto);
+                responseDto = entityToResponseDto(findRecord);
             }
-        }
-        return responseDtos;
+            return responseDto;
+        } else return null;
     }
 
     private RecordResponseDto entityToResponseDto(Record record) {

@@ -21,7 +21,7 @@ spring:
 server:
   servlet:
     session:
-      timeout: 43200
+      timeout: 3600
 
 logging:
   level:

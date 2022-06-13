@@ -2,7 +2,6 @@ package myprojects.fittdemo.controller;
 
 import lombok.RequiredArgsConstructor;
 import myprojects.fittdemo.controller.dtos.RecordResponseDto;
-import myprojects.fittdemo.service.MemberService;
 import myprojects.fittdemo.service.RecordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-
     private final RecordService recordService;
 
     @GetMapping("/")
@@ -23,15 +21,13 @@ public class HomeController {
         HttpSession session = request.getSession(false);
         if (session != null) {
             final Long memberId = (Long) session.getAttribute("memberId");
-            if (memberId != null && memberId >= 0) {
-                try {
-                    RecordResponseDto responseDto = recordService.find(memberId, LocalDate.now());
-                    model.addAttribute("record", responseDto);
-                    model.addAttribute("login", true);
-                    return "home";
-                } catch (IllegalStateException e) {
-                    return "main";
-                }
+            try {
+                RecordResponseDto responseDto = recordService.find(memberId, LocalDate.now());
+                model.addAttribute("record", responseDto);
+                model.addAttribute("login", true);
+                return "home";
+            } catch (IllegalStateException e) {
+                return "main";
             }
         }
         return "main";
