@@ -37,6 +37,10 @@ function requestDeleteSession() {
     })
 }
 
+function extendSessionTime(sessionInterval) {
+    time = sessionInterval;
+}
+
 function logout() {
     $.ajax({
         url: "/api/members/logout",
