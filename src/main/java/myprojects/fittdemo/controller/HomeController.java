@@ -24,7 +24,6 @@ public class HomeController {
             try {
                 RecordResponseDto responseDto = recordService.find(memberId, LocalDate.now());
                 model.addAttribute("record", responseDto);
-                model.addAttribute("login", true);
                 return "home";
             } catch (IllegalStateException e) {
                 return "main";

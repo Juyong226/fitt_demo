@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header('Home::fitt-demo')"></head>
+<script defer src="/js/calendar.js"></script>
 <body>
     <div class="main">
         <nav th:replace="fragments/nav :: nav"></nav>
-        <div class="container">
+        <div class="home-container">
             <div class="content-left">
-                <table id="calendar"></table>
+                <table id="calendar">
+                    <thead>
+                        <tr id="calendar-control">
+                            <td>
+                                <label id="prev" onclick="prev()">&#60;</label>
+                            </td>
+                            <td id="current-year-month" colspan="5"></td>
+                            <td>
+                                <label id="next" onclick="next()">&#62;</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sun">일</td>
+                            <td>월</td>
+                            <td>화</td>
+                            <td>수</td>
+                            <td>목</td>
+                            <td>금</td>
+                            <td class="sat">토</td>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body" class="calendar-body"></tbody>
+                </table>
             </div>
-            <div class="content-right" th:if="${login}">
-                <div class="record" th:if="${record}" th:object="${record}">
+            <div class="content-right">
+                <div class="record-exist" th:if="${record}" th:object="${record}">
                     <div id="record-fields">
                         <span th:text="*{dateOfRecord}"></span>
                         <span th:text="*{bodyWeight}"></span>
                         <div th:text="*{memo}"></div>
                     </div>
                     <div id="training-session">
-                        <div class="training-sessions" th:if="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
+                        <div id="training-sessions-exist" th:if="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
                             <div id="simple-training-session"
                                  th:each="simple : *{trainingSessionSimpleDtos}">
                                 <span th:text="${simple.trainingSessionId}"></span>
@@ -24,19 +47,16 @@
                                 <span th:text="${simple.totalVolume}"></span>
                             </div>
                         </div>
-                        <div class="training-sessions" th:unless="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
+                        <div id="training-sessions-not-exist" th:unless="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
                             <span>새로운 운동 세션을 추가하세요!</span>
                         </div>
                         <a>세션 추가 버튼</a>
                     </div>
                 </div>
-                <div class="record" th:unless="${record}">
+                <div class="record-not-exist" th:unless="${record}">
                     <span>아직 운동 기록이 존재하지 않습니다.</span>
                     <a>운동 기록 작성 버튼</a>
                 </div>
-            </div>
-            <div class="content-right" th:unless="${login}">
-                <span>로그인 후 이용이 가능합니다.</span>
             </div>
         </div>
     </div>

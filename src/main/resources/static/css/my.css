@@ -1,69 +1,155 @@
-.main {
-    display: flex;
-    justify-content: center;
+@media all and (min-width: 1024px) {
+    .main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #nav {
+        width: 70%;
+        height: 7%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    #session-time {
+        display: none;
+    }
+
+    .form-btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .my-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    /* edited bootStrap */
+    .row {
+        justify-content: center;
+    }
+
+    /* welcome page */
+    .welcome-content, .join-content {
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .welcome-logo, .join-logo {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .welcome-login {
+        width: 100%;
+        padding: 20px 10px 20px 10px;
+        display: flex;
+        justify-content: center;
+        border: solid 1px #d6dddd;
+        border-radius: 8px;
+    }
+
+    #login-form, #join-form {
+        width: 100%;
+    }
+
+    /* join page */
+    #join-form {
+        padding: 20px 10px 20px 10px;
+        border: solid 1px #d6dddd;
+        border-radius: 8px;
+    }
+
+    /* home */
+    .home-container {
+        width: 70%;
+        height: 70%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border: solid 1px #0d6efd;
+        border-radius: 12px;
+        background: #0d6efd;
+    }
+
+    .content-left {
+        width: 40%;
+        height: 96%;
+        border: solid 1px #0d6efd;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+    }
+
+    .content-right {
+        width: 57%;
+        height: 96%;
+        border: solid 1px #0d6efd;
+        border-radius: 10px;
+        background: #ffffff;
+    }
+
+    /* calendar */
+    #calendar {
+        width: 90%;
+        height: 70%;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    #calendar #calendar-control td {
+        height: 80px;
+        font-size: 1.5rem;
+    }
+
+    #prev, #next {
+        cursor: pointer;
+    }
+
+    #prev:hover, #next:hover {
+        font-size: 1.8rem;
+        color: sandybrown;
+    }
+
+    .sun {
+        color: orangered;
+    }
+
+    .sat {
+        color: #0d6efd;
+    }
+
+    .date:hover {
+        background: sandybrown;
+        opacity: 50%;
+        border-radius: 5%;
+        color: #ffffff;
+        cursor: pointer;
+    }
+
+    .selected {
+        background: sandybrown;
+        border-radius: 5%;
+        color: #ffffff;
+    }
 }
 
-.nav {
-    display: flex;
-    justify-content: flex-end;
-}
-
-#session-time {
-    display: none;
-}
-
-.form-btn {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.my-btn {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-/* edited bootStrap */
-.row {
-    justify-content: center;
-}
-
-/* welcome page */
-.welcome-content, .join-content {
-    width: 50%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.welcome-logo, .join-logo {
-    width: 100%;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.welcome-login {
-    width: 100%;
-    padding: 20px 10px 20px 10px;
-    display: flex;
-    justify-content: center;
-    border: solid 1px #d6dddd;
-    border-radius: 8px;
-}
-
-#login-form, #join-form {
-    width: 100%;
-}
-
-/* join page */
-#join-form {
-    padding: 20px 10px 20px 10px;
-    border: solid 1px #d6dddd;
-    border-radius: 8px;
-}
 
 
