@@ -49,7 +49,17 @@
     function addClickEvent() {
         for (let i=1; i<=pageYear[start.getMonth()]; i++) {
             dates[i] = $('#' + i);
-            dates[i].click(getSelected);
+            /**
+             * jQuery 를 통해 DOM 요소에 이벤트 핸들러를 달 때 주의점.
+             * - 이벤트 발생 시 호출되는 함수를 재정의(수정이든 뭐든)하면,
+             * 해당 요소에 재정의된 함수가 새로운 이벤트 함수로 교체되는 것이 아니라
+             * 기존에 있던 이벤트 핸들러와 더불어 재정의된 함수를 호출하는 새로운 이벤트 핸들러를 추가 등록한다.
+             * 따라서 이 경우 이벤트 발생 시 함수가 2개 호출된다. (같은 함수 재정의 시 같은 함수가 2번 호출됨)
+             *
+             * - jQuery off() 를 통해 누적되어 등록되어 있는 이벤트 핸들러들을 먼저 제거하고,
+             * 새로운 이벤트 핸들러를 달아줌으로써 함수 중복 호출 문제를 해결할 수 있다.
+             * */
+            dates[i].off().click(getSelected);
         }
     }
 
@@ -62,6 +72,7 @@
         targetDate = $(event.target);
         targetDate.addClass('selected');
         today = new Date(today.getFullYear(), today.getMonth(), targetDate.attr('id'));
+        requestRecord();
     }
 
     function removeCalendar() {
@@ -115,6 +126,39 @@
         targetDate = $('#' + today.getDate());
         targetDate.addClass('selected');
         addClickEvent();
+    }
+
+    function requestRecord() {
+        let dateOfRecord = getStringDate(today);
+        let requestUrl = '/records/' + dateOfRecord;
+        $.ajax({
+            url: requestUrl,
+            data: {dateOfRecord: dateOfRecord},
+            dataType: "html",
+            method: "GET",
+            success: function (response) {
+                let sessionInterval = $('#session-time').text();
+                extendSessionTime(sessionInterval);
+                let html = $(response);
+                let homeContainer = $('.home-container');
+                let contentRight = $('.content-right');
+                contentRight.remove();
+                homeContainer.append(html);
+            }
+        })
+    }
+
+    function getStringDate(date) {
+        let d_year = date.getFullYear().toString();
+        let d_month = date.getMonth() + 1;
+        let d_date = date.getDate();
+        if (d_month < 10) {
+            d_month = "0" + d_month ;
+        }
+        if (d_date < 10) {
+            d_date = "0" + d_date;
+        }
+        return (d_year + "-" + d_month + "-" + d_date);
     }
 
 

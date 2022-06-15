@@ -7,7 +7,7 @@
 
     function sessionTimeCount(time) {
         console.log("sessionTimeCount() has started.");
-        console.log("time: " + time);
+        console.log("session is valid for " + (time / 60) + " min.");
         if (isNaN(time) == true) {
             return;
         }
@@ -19,8 +19,8 @@
                 return;
             }
             time -= 600;
-            let min = time / 600;
-            console.log("session is valid for: " + min + "min.");
+            let min = time / 60;
+            console.log("session is valid for " + min + " min.");
         }, 600000);
     }
 
@@ -38,6 +38,8 @@
     }
 
     function extendSessionTime(sessionInterval) {
+        console.log("session has extended, it is valid for the next "
+            + (sessionInterval / 60) + " min.");
         time = sessionInterval;
     }
 

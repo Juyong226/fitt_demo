@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,14 +30,23 @@ public class RecordService {
     public RecordResponseDto find(Long memberId, LocalDate dateOfRecord) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, dateOfRecord);
-        return entitiyToResponseDto(findRecords);
+        return entitiesToResponseDto(findRecords);
     }
 
     @Transactional(readOnly = true)
     public RecordResponseDto find(Long memberId, String dateOfRecord) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, LocalDate.parse(dateOfRecord));
-        return entitiyToResponseDto(findRecords);
+        return entitiesToResponseDto(findRecords);
+    }
+
+    @Transactional
+    public RecordResponseDto find(Long memberId, RecordRequestDto requestDto) {
+        Member member = memberRepository.findOne(memberId);
+        List<Record> findRecords =
+                recordRepository.findByMemberAndDate(member,
+                        LocalDate.of(requestDto.getYear(), requestDto.getMonth(), requestDto.getDate()));
+        return entitiesToResponseDto(findRecords);
     }
 
     /**
@@ -74,7 +82,7 @@ public class RecordService {
 
 
     //------------------------------------------------------------------------------------------------------------------
-    private RecordResponseDto entitiyToResponseDto(List<Record> findRecords) {
+    private RecordResponseDto entitiesToResponseDto(List<Record> findRecords) {
         if (!findRecords.isEmpty()) {
             RecordResponseDto responseDto = null;
             for (Record findRecord : findRecords) {

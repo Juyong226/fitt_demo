@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="singleRecord" class="content-right">
+    <div class="record-exist" th:if="${record}" th:object="${record}">
+        <div id="record-fields">
+            <span th:text="*{dateOfRecord}"></span>
+            <span th:text="*{bodyWeight}"></span>
+            <div th:text="*{memo}"></div>
+        </div>
+        <div id="training-session">
+            <div id="training-sessions-exist" th:if="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
+                <div id="simple-training-session"
+                     th:each="simple : *{trainingSessionSimpleDtos}">
+                    <span th:text="${simple.trainingSessionId}"></span>
+                    <span th:text="${simple.title}"></span>
+                    <span th:text="${simple.totalVolume}"></span>
+                </div>
+            </div>
+            <div id="training-sessions-not-exist" th:unless="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
+                <span>새로운 운동 세션을 추가하세요!</span>
+            </div>
+            <a>세션 추가 버튼</a>
+        </div>
+    </div>
+    <div class="record-not-exist" th:unless="${record}">
+        <span>아직 운동 기록이 존재하지 않습니다.</span>
+        <a>운동 기록 작성 버튼</a>
+    </div>
+</div>
+
+</html>

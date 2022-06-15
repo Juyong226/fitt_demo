@@ -6,6 +6,11 @@ import lombok.Data;
 public class RecordRequestDto {
 
     private Long recordId;
+
+    private int year;
+    private int month;
+    private int date;
+
     private double bodyWeight;
     private String memo;
 }
