@@ -128,38 +128,6 @@
         addClickEvent();
     }
 
-    function requestRecord() {
-        let dateOfRecord = getStringDate(today);
-        let requestUrl = '/records/' + dateOfRecord;
-        $.ajax({
-            url: requestUrl,
-            data: {dateOfRecord: dateOfRecord},
-            dataType: "html",
-            method: "GET",
-            success: function (response) {
-                let sessionInterval = $('#session-time').text();
-                extendSessionTime(sessionInterval);
-                let html = $(response);
-                let homeContainer = $('.home-container');
-                let contentRight = $('.content-right');
-                contentRight.remove();
-                homeContainer.append(html);
-            }
-        })
-    }
-
-    function getStringDate(date) {
-        let d_year = date.getFullYear().toString();
-        let d_month = date.getMonth() + 1;
-        let d_date = date.getDate();
-        if (d_month < 10) {
-            d_month = "0" + d_month ;
-        }
-        if (d_date < 10) {
-            d_date = "0" + d_date;
-        }
-        return (d_year + "-" + d_month + "-" + d_date);
-    }
 
 
 

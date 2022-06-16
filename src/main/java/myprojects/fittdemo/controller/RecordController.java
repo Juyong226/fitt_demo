@@ -2,12 +2,13 @@ package myprojects.fittdemo.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import myprojects.fittdemo.controller.dtos.RecordRequestDto;
 import myprojects.fittdemo.controller.dtos.RecordResponseDto;
+import myprojects.fittdemo.controller.dtos.RecordUpdateForm;
 import myprojects.fittdemo.service.RecordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,9 +22,9 @@ public class RecordController {
 
     @GetMapping("/records/{dateOfRecord}")
     public String find(HttpServletRequest request,
-                       @PathVariable String dateOfRecord, Model model) {
+                       @PathVariable final String dateOfRecord, Model model) {
         HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute("memberId");
+        final Long memberId = (Long) session.getAttribute("memberId");
         try {
             RecordResponseDto responseDto = recordService.find(memberId, dateOfRecord);
             model.addAttribute("record", responseDto);
@@ -31,5 +32,47 @@ public class RecordController {
         } catch (IllegalStateException e) {
             return "main";
         }
+    }
+
+    @PostMapping("/records/{dateOfRecord}")
+    public String create(HttpServletRequest request,
+                         @PathVariable final String dateOfRecord, Model model) {
+        HttpSession session = request.getSession(false);
+        final Long memberId = (Long) session.getAttribute("memberId");
+        try {
+            RecordResponseDto responseDto = recordService.create(memberId, dateOfRecord);
+            model.addAttribute("record", responseDto);
+            return "fragments/singleRecord";
+        } catch (IllegalStateException e) {
+            return "main";
+        }
+    }
+
+    @GetMapping("/records/{recordId}/update-form")
+    public String updateForm(HttpServletRequest request,
+                             @PathVariable final Long recordId, Model model) {
+        RecordResponseDto responseDto = recordService.find(recordId);
+        model.addAttribute("record", responseDto);
+        return "fragments/recordUpdateForm";
+    }
+
+    @PutMapping("/records/{recordId}")
+    public String update(HttpServletRequest request,
+                         RecordRequestDto requestDto, Model model) {
+        HttpSession session = request.getSession(false);
+        final Long memberId = (Long) session.getAttribute("memberId");
+        RecordResponseDto responseDto = recordService.update(requestDto);
+        if (requestDto.getDateOfRecord().equals(responseDto.getDateOfRecord())) {
+            model.addAttribute("record", responseDto);
+        } else model.addAttribute("record", null);
+        return "fragments/singleRecord";
+    }
+
+    @DeleteMapping("/records/{recordId}")
+    public String remove(HttpServletRequest request,
+                         @PathVariable final Long recordId, Model model) {
+        RecordResponseDto responseDto = recordService.remove(recordId);
+        model.addAttribute("record", responseDto);
+        return "fragments/singleRecord";
     }
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header('Home::fitt-demo')"></head>
-<script defer src="/js/calendar.js"></script>
 <body>
     <div class="main">
         <nav th:replace="fragments/nav :: nav"></nav>
@@ -34,9 +33,21 @@
             <div class="content-right">
                 <div class="record-exist" th:if="${record}" th:object="${record}">
                     <div id="record-fields">
-                        <span th:text="*{dateOfRecord}"></span>
-                        <span th:text="*{bodyWeight}"></span>
-                        <div th:text="*{memo}"></div>
+                        <div id="top">
+                            <input type="hidden" id="recordId" th:field="*{recordId}">
+                            <div>
+                                <label for="dateOfRecord" class="label-record">날짜</label>
+                                <span id="dateOfRecord" th:text="*{dateOfRecord}"></span>
+                            </div>
+                            <div>
+                                <label for="bodyWeight" class="label-record">몸무게</label>
+                                <span id="bodyWeight" th:text="|*{bodyWeight} kg|"></span>
+                            </div>
+                        </div>
+                        <div id="bottom">
+                            <label for="memo" class="label-record">메모</label>
+                            <div id="memo" th:text="*{memo}"></div>
+                        </div>
                     </div>
                     <div id="training-session">
                         <div id="training-sessions-exist" th:if="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
@@ -46,16 +57,32 @@
                                 <span th:text="${simple.title}"></span>
                                 <span th:text="${simple.totalVolume}"></span>
                             </div>
+                            <div class="my-btn">
+                                <button type="button" class="btn btn-primary ts-add-btn">세션 추가</button>
+                            </div>
                         </div>
                         <div id="training-sessions-not-exist" th:unless="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
-                            <span>새로운 운동 세션을 추가하세요!</span>
+                            <div class="my-btn">
+                                <button type="button" class="btn btn-primary ts-add-btn">세션 추가</button>
+                            </div>
                         </div>
-                        <a>세션 추가 버튼</a>
+                    </div>
+                    <div class="record-btn">
+                        <div class="my-btn">
+                            <button type="button" class="btn btn-secondary" onclick="requestRemoveRecord()">기록삭제</button>
+                        </div>
+                        <div class="my-btn">
+                            <button type="button" class="btn btn-secondary" onclick="requestUpdateForm()">기록수정</button>
+                        </div>
                     </div>
                 </div>
                 <div class="record-not-exist" th:unless="${record}">
                     <span>아직 운동 기록이 존재하지 않습니다.</span>
-                    <a>운동 기록 작성 버튼</a>
+                    <div class="record-btn">
+                        <div class="my-btn">
+                            <button type="button" class="btn btn-secondary" onclick="requestCreateRecord()">기록하기</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

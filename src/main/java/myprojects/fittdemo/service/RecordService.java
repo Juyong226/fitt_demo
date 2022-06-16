@@ -41,6 +41,12 @@ public class RecordService {
     }
 
     @Transactional
+    public RecordResponseDto find(Long recordId) {
+        Record findOne = recordRepository.findOne(recordId);
+        return entityToResponseDto(findOne);
+    }
+
+    @Transactional
     public RecordResponseDto find(Long memberId, RecordRequestDto requestDto) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords =
@@ -57,31 +63,43 @@ public class RecordService {
     public Long create(Long memberId) {
         Member member = memberRepository.findOne(memberId);
         validateDuplicateRecord(member);
-        Record record = Record.create(member);
+        Record record = Record.create(member, LocalDate.now());
         recordRepository.save(record);
         return record.getId();
+    }
+
+    public RecordResponseDto create(Long memberId, String dateOfRecord) {
+        Member member = memberRepository.findOne(memberId);
+        LocalDate date = LocalDate.parse(dateOfRecord);
+        validateDuplicateRecord(member, date);
+        Record record = Record.create(member, date);
+        recordRepository.save(record);
+        return entityToResponseDto(record);
     }
 
     /**
      * Record 상태 필드 수정 메서드
      * @param: RecordDto
      * */
-    public void update(RecordRequestDto requestDto) {
+    public RecordResponseDto update(RecordRequestDto requestDto) {
         Record record = recordRepository.findOne(requestDto.getRecordId());
-        record.update(requestDto.getBodyWeight(), requestDto.getMemo());
+        LocalDate dateOfRecord = LocalDate.parse(requestDto.getDateOfRecord());
+        record.update(dateOfRecord, requestDto.getBodyWeight(), requestDto.getMemo());
+        return entityToResponseDto(record);
     }
 
     /**
      * Record 삭제 메서드
      * @Param: Long recordId
      * */
-    public void remove(Long recordId) {
+    public RecordResponseDto remove(Long recordId) {
         Record findOne = recordRepository.findOne(recordId);
         findOne.remove();
+        return null;
     }
 
-
     //------------------------------------------------------------------------------------------------------------------
+
     private RecordResponseDto entitiesToResponseDto(List<Record> findRecords) {
         if (!findRecords.isEmpty()) {
             RecordResponseDto responseDto = null;
@@ -97,9 +115,15 @@ public class RecordService {
         responseDto.initialize(record);
         return responseDto;
     }
-
     private void validateDuplicateRecord(Member member) {
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, LocalDate.now());
+        if (!findRecords.isEmpty()) {
+            throw new IllegalStateException("오늘 작성한 기록일지가 이미 존재합니다.");
+        }
+    }
+
+    private void validateDuplicateRecord(Member member, LocalDate dateOfRecord) {
+        List<Record> findRecords = recordRepository.findByMemberAndDate(member, dateOfRecord);
         if (!findRecords.isEmpty()) {
             throw new IllegalStateException("오늘 작성한 기록일지가 이미 존재합니다.");
         }

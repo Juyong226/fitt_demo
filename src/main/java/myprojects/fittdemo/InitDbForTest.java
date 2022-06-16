@@ -47,10 +47,16 @@ public class InitDbForTest {
                 } else {
                     dateOfJoin += "0-0" + temp + "-10";
                 }
+
                 Member member = Member.create(name, nickname, passwordEncoder.encode(rawPassword),
                         LocalDate.parse(dateOfBirth), LocalDate.parse(dateOfJoin));
                 em.persist(member);
-                em.persist(Record.create(member));
+
+                Record record = Record.create(member, LocalDate.now());
+                double bodyWeight = 78.5;
+                String memo = "오늘은 아침 운동만 했다. 내일은 꼭 저녁에도 하자!";
+                record.update(LocalDate.now(), bodyWeight, memo);
+                em.persist(record);
             }
         }
 

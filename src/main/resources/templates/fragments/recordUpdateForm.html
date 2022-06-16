@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<form id="record-update-form" th:object="${record}">
+    <div id="top">
+        <input type="hidden" th:field="*{recordId}">
+        <div>
+            <label for="dateOfRecord" class="label-record">날짜</label>
+            <input type="date" id="dateOfRecord" th:field="*{dateOfRecord}">
+        </div>
+        <div>
+            <label for="bodyWeight" class="label-record">몸무게</label>
+            <input type="number" id="bodyWeight" th:field="*{bodyWeight}">
+        </div>
+    </div>
+    <div id="bottom">
+        <label for="memo" class="label-record">메모</label>
+        <textarea id="memo" th:field="*{memo}"></textarea>
+    </div>
+    <div class="record-btn">
+        <div class="my-btn">
+            <button type="button" class="btn btn-secondary" onclick="cancelUpdateRecord()">취소</button>
+        </div>
+        <div class="my-btn">
+            <button type="button" class="btn btn-secondary" onclick="requestUpdateRecord()">수정</button>
+        </div>
+    </div>
+</form>
+
+</html>

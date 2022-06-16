@@ -53,15 +53,15 @@ public class Record {
      * */
     protected Record() {}
 
-    public static Record create(Member member) {
+    public static Record create(Member member, LocalDate dateOfRecord) {
         Record record = new Record();
-        record.initialize(member);
+        record.initialize(member, dateOfRecord);
         return record;
     }
 
-    private void initialize(Member member) {
+    private void initialize(Member member, LocalDate dateOfRecord) {
         relateTo(member);
-        this.dateOfRecord = LocalDate.now();
+        this.dateOfRecord = dateOfRecord;
         this.isRemoved = false;
     }
 
@@ -83,7 +83,8 @@ public class Record {
     /**
      * 비즈니스 로직
      * */
-    public void update(double bodyWeight, String memo) {
+    public void update(LocalDate dateOfRecord, double bodyWeight, String memo) {
+        this.dateOfRecord = dateOfRecord;
         this.bodyWeight = bodyWeight;
         this.memo = memo;
     }

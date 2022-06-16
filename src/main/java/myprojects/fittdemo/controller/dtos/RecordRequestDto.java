@@ -7,6 +7,8 @@ public class RecordRequestDto {
 
     private Long recordId;
 
+    private String dateOfRecord;
+
     private int year;
     private int month;
     private int date;

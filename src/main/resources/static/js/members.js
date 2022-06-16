@@ -1,8 +1,9 @@
     var time;
-
+    var sessionInterval;
     window.onload = function () {
-        time = $('#session-time').text();
-        sessionTimeCount(Number(time));
+        sessionInterval = Number($('#session-time').text());
+        time = sessionInterval;
+        sessionTimeCount(time);
     }
 
     function sessionTimeCount(time) {
@@ -37,7 +38,7 @@
         })
     }
 
-    function extendSessionTime(sessionInterval) {
+    function extendSessionTime() {
         console.log("session has extended, it is valid for the next "
             + (sessionInterval / 60) + " min.");
         time = sessionInterval;
