@@ -4,18 +4,18 @@
 <form id="record-update-form" th:object="${record}">
     <div id="top">
         <input type="hidden" th:field="*{recordId}">
-        <div>
+        <div class="form-floating">
+            <input type="date" id="dateOfRecord" class="form-control" th:field="*{dateOfRecord}" placeholder="날짜">
             <label for="dateOfRecord" class="label-record">날짜</label>
-            <input type="date" id="dateOfRecord" th:field="*{dateOfRecord}">
         </div>
-        <div>
+        <div class="form-floating">
+            <input type="number" id="bodyWeight" class="form-control" th:field="*{bodyWeight}" placeholder="몸무게">
             <label for="bodyWeight" class="label-record">몸무게</label>
-            <input type="number" id="bodyWeight" th:field="*{bodyWeight}">
         </div>
     </div>
-    <div id="bottom">
+    <div id="bottom" class="form-floating">
+        <textarea id="memo" class="form-control" th:field="*{memo}" placeholder="메모"></textarea>
         <label for="memo" class="label-record">메모</label>
-        <textarea id="memo" th:field="*{memo}"></textarea>
     </div>
     <div class="record-btn">
         <div class="my-btn">

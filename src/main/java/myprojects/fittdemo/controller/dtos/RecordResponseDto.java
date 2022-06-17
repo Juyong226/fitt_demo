@@ -14,7 +14,7 @@ public class RecordResponseDto {
     private boolean isExist = true;
     private Long recordId;
     private Long memberId;
-    private LocalDate dateOfRecord;
+    private String dateOfRecord;
     private double bodyWeight;
     private String memo;
     private List<TrainingSessionSimpleDto> trainingSessionSimpleDtos = new ArrayList<>();
@@ -22,7 +22,7 @@ public class RecordResponseDto {
     public void initialize(Record record) {
         setRecordId(record.getId());
         setMemberId(record.getMember().getId());
-        setDateOfRecord(record.getDateOfRecord());
+        setDateOfRecord(record.getDateOfRecord().toString());
         setBodyWeight(record.getBodyWeight());
         setMemo(record.getMemo());
         setTrainingSessionSimpleDtos(record.getTrainingSessions());

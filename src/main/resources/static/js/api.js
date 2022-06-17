@@ -61,6 +61,13 @@
 
     function requestUpdateRecord() {
         let recordId = $('#recordId').val();
+        let input_date = $('#record-update-form #dateOfRecord');
+        let dateOfRecord = $('#record-update-form #dateOfRecord').val();
+        if (dateOfRecord === '' || dateOfRecord === null || dateOfRecord === undefined) {
+            input_date.focus();
+            alert('날짜를 선택해주세요.');
+            return;
+        }
         let requestUrl = '/records/' + recordId;
         let formData = $('#record-update-form').serialize();
         $.ajax({

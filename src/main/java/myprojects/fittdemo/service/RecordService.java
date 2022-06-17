@@ -84,8 +84,13 @@ public class RecordService {
     public RecordResponseDto update(RecordRequestDto requestDto) {
         Record record = recordRepository.findOne(requestDto.getRecordId());
         LocalDate dateOfRecord = LocalDate.parse(requestDto.getDateOfRecord());
-        record.update(dateOfRecord, requestDto.getBodyWeight(), requestDto.getMemo());
-        return entityToResponseDto(record);
+        if (record.getDateOfRecord().equals(dateOfRecord)) {
+            record.update(dateOfRecord, requestDto.getBodyWeight(), requestDto.getMemo());
+            return entityToResponseDto(record);
+        } else {
+            record.update(dateOfRecord, requestDto.getBodyWeight(), requestDto.getMemo());
+            return null;
+        }
     }
 
     /**

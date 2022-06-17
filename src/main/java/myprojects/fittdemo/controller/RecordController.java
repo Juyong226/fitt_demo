@@ -62,9 +62,7 @@ public class RecordController {
         HttpSession session = request.getSession(false);
         final Long memberId = (Long) session.getAttribute("memberId");
         RecordResponseDto responseDto = recordService.update(requestDto);
-        if (requestDto.getDateOfRecord().equals(responseDto.getDateOfRecord())) {
-            model.addAttribute("record", responseDto);
-        } else model.addAttribute("record", null);
+        model.addAttribute("record", responseDto);
         return "fragments/singleRecord";
     }
 
