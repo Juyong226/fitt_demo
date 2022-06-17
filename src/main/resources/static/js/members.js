@@ -44,6 +44,36 @@
         time = sessionInterval;
     }
 
+    function login() {
+        let formData = $('#login-form').serialize();
+        $.ajax({
+            url: "/api/members/login",
+            data: formData,
+            method: "POST",
+            success: function (response) {
+                let exception = response.exception;
+                let messageAndRedirection = response.messageAndRedirection;
+                if (exception.hasException) {
+                    alert(exception.message);
+                } else {
+                    location.href = messageAndRedirection.url;
+                }
+            }
+        })
+    }
+
+    function checkInput() {
+        let nickname = $('#nickname').val();
+        let password = $('#password').val();
+
+        if (nickname === "" || nickname === undefined
+            || password === "" || password === undefined) {
+            alert("닉네임과 비밀번호를 모두 입력하세요.");
+            return;
+        }
+        login();
+    }
+
     function logout() {
         $.ajax({
             url: "/api/members/logout",

@@ -74,6 +74,14 @@
         border-radius: 8px;
     }
 
+    #join-form #nickname-validation {
+        width: 100%;
+        margin-top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     /* home */
     .home-container {
         width: 70%;

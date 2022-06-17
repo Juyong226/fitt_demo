@@ -12,12 +12,12 @@
                         <input type="text" class="form-control" id="name" th:field="*{name}">
                     </div>
                 </div>
-                <div class="row mb-3">
+                <div class="row mb-3" id="nickname-row">
                     <label th:for="nickname" class="col-sm-2 col-form-label">닉네임</label>
                     <div class="col-sm-5" id="nickname-div">
                         <input type="text" class="form-control" th:field="*{nickname}">
                     </div>
-                    <div class="my-btn">
+                    <div class="my-btn" id="nickname-validation">
                         <button type="button"
                                 class="btn btn-primary"
                                 onclick="validate()">중복체크</button>

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myprojects.fittdemo.controller.dtos.RecordRequestDto;
 import myprojects.fittdemo.controller.dtos.RecordResponseDto;
-import myprojects.fittdemo.controller.dtos.RecordUpdateForm;
 import myprojects.fittdemo.service.RecordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
