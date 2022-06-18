@@ -13,20 +13,16 @@ public class SessionWorkoutRequestDto {
     private Long workoutId;
     private List<RoundRequestDto> roundRequestDtos = new ArrayList<>();
 
-    public void initialize(SessionWorkoutResponseDto responseDto) {
-        setTrainingSessionId(responseDto.getTrainingSessionId());
-        setSessionWorkoutId(responseDto.getSessionWorkoutId());
-        setWorkoutId(responseDto.getWorkoutId());
-        setRoundRequestDtos1(responseDto.getRoundResponseDtos());
-    }
-
-    private void setRoundRequestDtos1(List<RoundResponseDto> roundResponseDtos) {
-        List<RoundRequestDto> requestDtos = new ArrayList<>();
-        for (RoundResponseDto responseDto : roundResponseDtos) {
-            RoundRequestDto requestDto = new RoundRequestDto();
-            requestDto.initialize(responseDto);
-            requestDtos.add(requestDto);
+    public int nullCheck() throws IllegalStateException {
+        if (trainingSessionId == null || trainingSessionId == 0) {
+            throw new IllegalStateException("유효하지 않은 TrainingSession Id 입니다.");
         }
-        this.roundRequestDtos = requestDtos;
+        if (workoutId == null || workoutId == 0) {
+            throw new IllegalStateException("유효하지 않은 Workout Id 입니다.");
+        }
+        if (sessionWorkoutId == null || sessionWorkoutId == 0) {
+            return 0;
+        }
+        return 1;
     }
 }

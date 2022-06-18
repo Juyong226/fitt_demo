@@ -30,7 +30,7 @@ class RoundServiceTest {
     @Test
     public void create_test() {
         // given
-        TrainingSessionResponseDto tResponseDto = newTrainingSession();
+        TrainingSessionSimpleDto tResponseDto = newTrainingSession();
         SessionWorkoutResponseDto sResponseDto = newSessionWorkout(tResponseDto);
         RoundRequestDto requestDto = new RoundRequestDto();
         requestDto.setSessionWorkoutId(sResponseDto.getSessionWorkoutId());
@@ -50,7 +50,7 @@ class RoundServiceTest {
     @Test
     public void update_test() {
         // given
-        TrainingSessionResponseDto tResponseDto = newTrainingSession();
+        TrainingSessionSimpleDto tResponseDto = newTrainingSession();
         SessionWorkoutResponseDto sResponseDto = newSessionWorkout(tResponseDto);
         RoundRequestDto requestDto = new RoundRequestDto();
         requestDto.setSessionWorkoutId(sResponseDto.getSessionWorkoutId());
@@ -75,7 +75,7 @@ class RoundServiceTest {
     @Rollback(value = false)
     public void remove_test() {
         // given
-        TrainingSessionResponseDto tResponseDto = newTrainingSession();
+        TrainingSessionSimpleDto tResponseDto = newTrainingSession();
         SessionWorkoutResponseDto sResponseDto = newSessionWorkout(tResponseDto);
         RoundRequestDto requestDto = new RoundRequestDto();
         requestDto.setSessionWorkoutId(sResponseDto.getSessionWorkoutId());
@@ -90,7 +90,7 @@ class RoundServiceTest {
         assertEquals(null, em.find(Round.class, responseDto.getRoundId()));
     }
 
-    private SessionWorkoutResponseDto newSessionWorkout(TrainingSessionResponseDto tResponseDto) {
+    private SessionWorkoutResponseDto newSessionWorkout(TrainingSessionSimpleDto tResponseDto) {
         Long workoutId = 1L;
         SessionWorkoutRequestDto requestDto = new SessionWorkoutRequestDto();
         requestDto.setTrainingSessionId(tResponseDto.getTrainingSessionId());
@@ -99,7 +99,7 @@ class RoundServiceTest {
         return sessionWorkoutService.create(requestDto);
     }
 
-    private TrainingSessionResponseDto newTrainingSession() {
+    private TrainingSessionSimpleDto newTrainingSession() {
         Long recordId = 1L;
         String title = "밤 운동";
         return trainingSessionService.create(recordId, title);

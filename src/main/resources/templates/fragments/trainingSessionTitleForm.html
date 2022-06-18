@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<form id="ts-title-form" th:object="${titleForm}">
+    <div class="ts-recordId">
+        <input type="hidden" th:field="*{recordId}">
+    </div>
+    <div class="ts-trainingSessionId">
+        <input type="hidden" th:field="*{trainingSessionId}">
+    </div>
+    <div id="ts-title" class="form-floating">
+        <input type="text" id="title" class="form-control" th:field="*{title}"
+               placeholder="운동 세션의 제목을 적어주세요.">
+        <label for="title">운동 세션의 제목을 적어주세요.</label>
+    </div>
+    <div id="title-form-btn">
+        <div class="my-btn">
+            <button type="button" onclick="cancelCreateTS()">취소</button>
+        </div>
+        <div class="my-btn">
+            <button type="button" onclick="createTS()">확인</button>
+        </div>
+    </div>
+</form>
+
+</html>

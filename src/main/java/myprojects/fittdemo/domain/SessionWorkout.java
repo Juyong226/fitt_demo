@@ -1,6 +1,7 @@
 package myprojects.fittdemo.domain;
 
 import lombok.Getter;
+import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -38,7 +39,7 @@ public class SessionWorkout {
 
     private double volume;
 
-    @OneToMany(mappedBy = "sessionWorkout", cascade = PERSIST)
+    @OneToMany(mappedBy = "sessionWorkout", cascade = PERSIST, orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Round> rounds = new ArrayList<>();
 
@@ -76,6 +77,12 @@ public class SessionWorkout {
     /**
      * 비즈니스 로직
      * */
+    public void update(Workout workout, List<Round> rounds) {
+        this.workout = workout;
+        this.rounds.clear();
+        this.rounds = rounds;
+    }
+
     public double calAndSetVolume() {
         double sum = 0;
         for(Round round : rounds) {
@@ -84,4 +91,5 @@ public class SessionWorkout {
         this.volume = sum;
         return sum;
     }
+
 }

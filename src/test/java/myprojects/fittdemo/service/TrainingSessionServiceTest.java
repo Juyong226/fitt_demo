@@ -1,9 +1,6 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.dtos.RoundRequestDto;
-import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
-import myprojects.fittdemo.controller.dtos.TrainingSessionRequestDto;
-import myprojects.fittdemo.controller.dtos.TrainingSessionResponseDto;
+import myprojects.fittdemo.controller.dtos.*;
 import myprojects.fittdemo.domain.Member;
 import myprojects.fittdemo.domain.Record;
 import myprojects.fittdemo.domain.Workout;
@@ -48,8 +45,8 @@ class TrainingSessionServiceTest {
         String title = "두번째 운동";
 
         // when
-        TrainingSessionResponseDto responseDto = trainingSessionService.create(recordId, title);
-        TrainingSessionResponseDto result = trainingSessionService.find(0, responseDto.getTrainingSessionId());
+        TrainingSessionSimpleDto responseDto = trainingSessionService.create(recordId, title);
+        TrainingSessionResponseDto result = trainingSessionService.find(responseDto.getTrainingSessionId(), 0);
 
         // then
         assertEquals(recordId, result.getRecordId());
@@ -78,14 +75,14 @@ class TrainingSessionServiceTest {
         // given
         Long recordId = 2L;
         String title = "운동 시작 첫 운동";
-        TrainingSessionResponseDto created0 = trainingSessionService.create(recordId, title);
+        TrainingSessionSimpleDto created0 = trainingSessionService.create(recordId, title);
         TrainingSessionRequestDto requestDto = newRequestDto(3L, "오후 운동");
         TrainingSessionResponseDto created1 = trainingSessionService.create(requestDto);
         // when
         TrainingSessionResponseDto result0 =
-                trainingSessionService.find(created0.getSessionWorkoutCount(), created0.getTrainingSessionId());
+                trainingSessionService.find(created0.getTrainingSessionId(), created0.getSessionWorkoutCount());
         TrainingSessionResponseDto result1 =
-                trainingSessionService.find(created1.getSessionWorkoutCount(), created1.getTrainingSessionId());
+                trainingSessionService.find(created1.getTrainingSessionId(), created1.getSessionWorkoutResponseDtos().size());
 
         // then
         assertEquals(created0.getRecordId(), result0.getRecordId());
@@ -106,7 +103,7 @@ class TrainingSessionServiceTest {
         // when
         trainingSessionService.update(responseDto.getTrainingSessionId(), responseDto.getTitle());
         TrainingSessionResponseDto result =
-                trainingSessionService.find(responseDto.getSessionWorkoutResponseDtos().size(),responseDto.getTrainingSessionId());
+                trainingSessionService.find(responseDto.getTrainingSessionId(), responseDto.getSessionWorkoutResponseDtos().size());
 
         // then
         assertEquals(responseDto.getTitle(), result.getTitle());
@@ -122,7 +119,7 @@ class TrainingSessionServiceTest {
         // when
         trainingSessionService.remove(responseDto.getTrainingSessionId());
         TrainingSessionResponseDto result = trainingSessionService.find(
-                responseDto.getSessionWorkoutResponseDtos().size(), responseDto.getTrainingSessionId());
+                responseDto.getTrainingSessionId(), responseDto.getSessionWorkoutResponseDtos().size());
 
         // then
         assertEquals(null, result);

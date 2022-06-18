@@ -41,6 +41,14 @@ public class SessionWorkoutService {
         return entityToResponseDto(sessionWorkout);
     }
 
+    public SessionWorkoutResponseDto update(SessionWorkoutRequestDto requestDto) {
+        SessionWorkout sessionWorkout = sessionWorkoutRepository.findOne(requestDto.getSessionWorkoutId());
+        Workout workout = workoutRepository.findOne(requestDto.getWorkoutId());
+        List<Round> rounds = convertToRounds(requestDto.getRoundRequestDtos());
+        sessionWorkout.update(workout, rounds);
+        return entityToResponseDto(sessionWorkout);
+    }
+
     /**
      * SessionWorkout 삭제 메서드
      *  - SessionWorkout 을 조회하고, 엔티티를 삭제함

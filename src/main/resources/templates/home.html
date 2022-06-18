@@ -51,7 +51,7 @@
                     </div>
                     <div id="training-session">
                         <div id="training-sessions-exist" th:if="*{not #lists.isEmpty(trainingSessionSimpleDtos)}">
-                            <div id="simple-training-session"
+                            <div class="simple-training-session"
                                  th:each="simple : *{trainingSessionSimpleDtos}">
                                 <span th:text="${simple.trainingSessionId}"></span>
                                 <span th:text="${simple.title}"></span>

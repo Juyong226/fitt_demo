@@ -1,9 +1,6 @@
 package myprojects.fittdemo.service;
 
-import myprojects.fittdemo.controller.dtos.RoundRequestDto;
-import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
-import myprojects.fittdemo.controller.dtos.SessionWorkoutResponseDto;
-import myprojects.fittdemo.controller.dtos.TrainingSessionResponseDto;
+import myprojects.fittdemo.controller.dtos.*;
 import myprojects.fittdemo.domain.SessionWorkout;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,7 @@ class SessionWorkoutServiceTest {
     @Test
     public void create_test() {
         // given
-        TrainingSessionResponseDto tResponseDto =  newTrainingSession();
+        TrainingSessionSimpleDto tResponseDto =  newTrainingSession();
         Long workoutId = 1L;
         SessionWorkoutRequestDto requestDto = new SessionWorkoutRequestDto();
         requestDto.setTrainingSessionId(tResponseDto.getTrainingSessionId());
@@ -48,7 +45,7 @@ class SessionWorkoutServiceTest {
     @Test
     public void remove_test() {
         // given
-        TrainingSessionResponseDto tResponseDto =  newTrainingSession();
+        TrainingSessionSimpleDto tResponseDto =  newTrainingSession();
         Long workoutId = 1L;
         SessionWorkoutRequestDto requestDto = new SessionWorkoutRequestDto();
         requestDto.setTrainingSessionId(tResponseDto.getTrainingSessionId());
@@ -64,7 +61,7 @@ class SessionWorkoutServiceTest {
         assertEquals(null, result);
     }
 
-    private TrainingSessionResponseDto newTrainingSession() {
+    private TrainingSessionSimpleDto newTrainingSession() {
         Long recordId = 1L;
         String title = "밤 운동";
         return trainingSessionService.create(recordId, title);

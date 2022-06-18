@@ -15,15 +15,9 @@ public class TrainingSessionResponseDto {
     private Long trainingSessionId;
     private String title;
     private double totalVolume;
-    private int sessionWorkoutCount;
     private List<SessionWorkoutResponseDto> sessionWorkoutResponseDtos = new ArrayList<>();
 
     public TrainingSessionResponseDto() {}
-    public TrainingSessionResponseDto(Long recordId, Long trainingSessionId, String title) {
-        setRecordId(recordId);
-        setTrainingSessionId(trainingSessionId);
-        setTitle(title);
-    }
 
     public void initialize(TrainingSession trainingSession) {
         setRecordId(trainingSession.getRecord().getId());
@@ -31,7 +25,6 @@ public class TrainingSessionResponseDto {
         setTitle(trainingSession.getTitle());
         setTotalVolume(trainingSession.calAndSetTotalVolume());
         setSessionWorkoutResponseDtos(trainingSession.getSessionWorkouts());
-        setSessionWorkoutCount(sessionWorkoutResponseDtos.size());
 
     }
 

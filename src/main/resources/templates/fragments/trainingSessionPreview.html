@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="simple-training-session" th:object="${trainingSession}">
+    <div class="ts-recordId">
+        <input type="hidden" th:field="*{recordId}">
+    </div>
+    <div class="ts-trainingSessionId">
+        <input type="hidden" th:field="*{trainingSessionId}">
+    </div>
+    <div class="ts-title">
+        <span th:text="*{title}">title</span>
+    </div>
+    <div class="ts-totalVolume">
+        <label th:for="|ts-totalVolume-*{trainingSessionId}|">총볼륨</label>
+        <span th:id="|ts-totalVolume-*{trainingSessionId}|" th:field="*{totalVolume}">totalVolume</span>
+    </div>
+    <div>
+        <button type="button" class="expand-btn"></button>
+    </div>
+    }
+
+</div>
+
+</html>

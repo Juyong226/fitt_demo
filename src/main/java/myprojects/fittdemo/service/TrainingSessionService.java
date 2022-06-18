@@ -1,10 +1,7 @@
 package myprojects.fittdemo.service;
 
 import lombok.RequiredArgsConstructor;
-import myprojects.fittdemo.controller.dtos.RoundRequestDto;
-import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
-import myprojects.fittdemo.controller.dtos.TrainingSessionRequestDto;
-import myprojects.fittdemo.controller.dtos.TrainingSessionResponseDto;
+import myprojects.fittdemo.controller.dtos.*;
 import myprojects.fittdemo.domain.*;
 import myprojects.fittdemo.domain.Record;
 import myprojects.fittdemo.repository.RecordRepository;
@@ -31,7 +28,7 @@ public class TrainingSessionService {
      * @param: Long trainingSessionId
      * */
     @Transactional(readOnly = true)
-    public TrainingSessionResponseDto find(Integer sessionWorkoutCount, Long trainingSessionId) {
+    public TrainingSessionResponseDto find(Long trainingSessionId, Integer sessionWorkoutCount) {
         if (sessionWorkoutCount > 0) {
             return findWithFetch(trainingSessionId);
         }
@@ -56,12 +53,12 @@ public class TrainingSessionService {
      * @param: Long recordId, String title
      * @return: TrainingSessionResponseDto
      * */
-    public TrainingSessionResponseDto create(Long recordId, String title) {
+    public TrainingSessionSimpleDto create(Long recordId, String title) {
         Record record = recordRepository.findOne(recordId);
         TrainingSession trainingSession = TrainingSession.create(title);
         trainingSession.relateTo(record);
         trainingSessionRepository.save(trainingSession);
-        return new TrainingSessionResponseDto(recordId, trainingSession.getId(), title);
+        return new TrainingSessionSimpleDto(trainingSession);
     }
 
     /**
@@ -81,10 +78,12 @@ public class TrainingSessionService {
     /**
      * TrainingSession 상태 필드 수정 메서드
      * @Param: TrainingSessionDto
+     * @return: TrainingSessionResponseDto
      * */
-    public void update(Long trainingSessionId, String title) {
+    public TrainingSessionResponseDto update(Long trainingSessionId, String title) {
         TrainingSession findOne = trainingSessionRepository.findOne(trainingSessionId);
         findOne.update(title);
+        return entityToResponseDto(findOne);
     }
 
     /**
