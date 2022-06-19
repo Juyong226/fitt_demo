@@ -18,7 +18,7 @@ public class SessionWorkoutApiController {
     @PostMapping("/api/sw")
     public Result create(@RequestBody SessionWorkoutRequestDto requestDto) {
         try {
-            requestDto.nullCheck();
+            requestDto.validation();
             SessionWorkoutResponseDto responseDto = sessionWorkoutService.create(requestDto);
             return new Result(
                     new ExceptionDto(false),
@@ -36,17 +36,14 @@ public class SessionWorkoutApiController {
     @PutMapping("/api/sw")
     public Result update(@RequestBody SessionWorkoutRequestDto requestDto) {
         try {
-            if (requestDto.nullCheck() == 1) {
-                SessionWorkoutResponseDto responseDto = sessionWorkoutService.update(requestDto);
-                return new Result(
-                        new ExceptionDto(false),
-                        new MessageAndRedirection("SessionWorkout has updated."),
-                        responseDto
-                );
+            if (requestDto.validation() == 0) {
+                throw new IllegalStateException("유효하지 않은 SessionWorkout Id 입니다.");
             }
+            SessionWorkoutResponseDto responseDto = sessionWorkoutService.update(requestDto);
             return new Result(
                     new ExceptionDto(false),
-                    new MessageAndRedirection("유효하지 않은 SessionWorkout Id 입니다.")
+                    new MessageAndRedirection("SessionWorkout has updated."),
+                    responseDto
             );
         } catch (IllegalStateException e) {
             return new Result(
@@ -59,7 +56,7 @@ public class SessionWorkoutApiController {
     @DeleteMapping("/api/sw")
     public Result remove(@RequestParam final Long sessionWorkoutId) {
         try {
-            nullCheck(sessionWorkoutId);
+            validation(sessionWorkoutId);
             sessionWorkoutService.remove(sessionWorkoutId);
             return new Result(
                     new ExceptionDto(false),
@@ -74,7 +71,7 @@ public class SessionWorkoutApiController {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    private void nullCheck(Long id) {
+    private void validation(Long id) {
         if (id == null || id <= 0) {
             throw new IllegalStateException("유효한 Id 값이 아닙니다.");
         }

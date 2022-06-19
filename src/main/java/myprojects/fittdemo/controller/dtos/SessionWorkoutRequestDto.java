@@ -13,14 +13,14 @@ public class SessionWorkoutRequestDto {
     private Long workoutId;
     private List<RoundRequestDto> roundRequestDtos = new ArrayList<>();
 
-    public int nullCheck() throws IllegalStateException {
-        if (trainingSessionId == null || trainingSessionId == 0) {
+    public int validation() throws IllegalStateException {
+        if (trainingSessionId == null || trainingSessionId <= 0) {
             throw new IllegalStateException("유효하지 않은 TrainingSession Id 입니다.");
         }
-        if (workoutId == null || workoutId == 0) {
+        if (workoutId == null || workoutId <= 0) {
             throw new IllegalStateException("유효하지 않은 Workout Id 입니다.");
         }
-        if (sessionWorkoutId == null || sessionWorkoutId == 0) {
+        if (sessionWorkoutId == null || sessionWorkoutId <= 0) {
             return 0;
         }
         return 1;
