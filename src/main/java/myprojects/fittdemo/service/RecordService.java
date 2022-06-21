@@ -40,13 +40,13 @@ public class RecordService {
         return entitiesToResponseDto(findRecords);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public RecordResponseDto find(Long recordId) {
         Record findOne = recordRepository.findOne(recordId);
         return entityToResponseDto(findOne);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public RecordResponseDto find(Long memberId, RecordRequestDto requestDto) {
         Member member = memberRepository.findOne(memberId);
         List<Record> findRecords =
@@ -120,14 +120,14 @@ public class RecordService {
         responseDto.initialize(record);
         return responseDto;
     }
-    private void validateDuplicateRecord(Member member) {
+    private void validateDuplicateRecord(Member member) throws IllegalStateException {
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, LocalDate.now());
         if (!findRecords.isEmpty()) {
             throw new IllegalStateException("오늘 작성한 기록일지가 이미 존재합니다.");
         }
     }
 
-    private void validateDuplicateRecord(Member member, LocalDate dateOfRecord) {
+    private void validateDuplicateRecord(Member member, LocalDate dateOfRecord) throws IllegalStateException {
         List<Record> findRecords = recordRepository.findByMemberAndDate(member, dateOfRecord);
         if (!findRecords.isEmpty()) {
             throw new IllegalStateException("오늘 작성한 기록일지가 이미 존재합니다.");

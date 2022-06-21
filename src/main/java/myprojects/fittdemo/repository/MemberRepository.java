@@ -17,7 +17,7 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    public Member findOne(Long memberId) {
+    public Member findOne(Long memberId) throws IllegalStateException {
         Member member = em.find(Member.class, memberId);
         if (member == null) {
             throw new IllegalStateException("존재하지 않는 회원입니다.");
@@ -25,7 +25,7 @@ public class MemberRepository {
         return member;
     }
 
-    public List<Member> findWithBigFours(Long memberId) {
+    public List<Member> findWithBigFours(Long memberId) throws IllegalStateException {
         List<Member> memberList = em.createQuery(
                                     "select m from Member m" +
                                             " join fetch m.bigFours bf" +

@@ -61,6 +61,7 @@ class RecordServiceTest {
 
         RecordRequestDto recordRequestDto = new RecordRequestDto();
         recordRequestDto.setRecordId(recordOld.getRecordId());
+        recordRequestDto.setDateOfRecord(recordOld.getDateOfRecord());
         recordRequestDto.setBodyWeight(79.5);
         recordRequestDto.setMemo("테스트 중!");
 

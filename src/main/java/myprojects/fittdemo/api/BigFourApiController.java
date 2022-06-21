@@ -2,27 +2,27 @@ package myprojects.fittdemo.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import myprojects.fittdemo.controller.dtos.SessionWorkoutRequestDto;
-import myprojects.fittdemo.controller.dtos.SessionWorkoutResponseDto;
+import myprojects.fittdemo.controller.dtos.BigFourRequestDto;
+import myprojects.fittdemo.controller.dtos.BigFourResonseDto;
 import myprojects.fittdemo.controller.dtos.exception.ExceptionDto;
-import myprojects.fittdemo.service.SessionWorkoutService;
+import myprojects.fittdemo.service.BigFourService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class SessionWorkoutApiController {
+public class BigFourApiController {
 
-    private final SessionWorkoutService sessionWorkoutService;
+    private BigFourService bigFourService;
 
-    @PostMapping("/api/sw")
-    public Result create(@RequestBody SessionWorkoutRequestDto requestDto) {
+    @PostMapping("/api/bigFour")
+    public Result create(BigFourRequestDto requestDto) {
         try {
-            requestDto.validation();
-            SessionWorkoutResponseDto responseDto = sessionWorkoutService.create(requestDto);
+            requestDto.validate();
+            BigFourResonseDto responseDto = bigFourService.create(requestDto);
             return new Result(
                     new ExceptionDto(false),
-                    new MessageAndRedirection("SessionWorkout has created."),
+                    new MessageAndRedirection("new bigFour has been created."),
                     responseDto
             );
         } catch (IllegalStateException e) {
@@ -33,16 +33,16 @@ public class SessionWorkoutApiController {
         }
     }
 
-    @PutMapping("/api/sw")
-    public Result update(@RequestBody SessionWorkoutRequestDto requestDto) {
+    @PutMapping("/api/bigFour")
+    public Result update(BigFourRequestDto requestDto) {
         try {
-            if (requestDto.validation() == 0) {
-                throw new IllegalStateException("유효한 SessionWorkout Id 값이 아닙니다.");
+            if (requestDto.validate() == 1) {
+                throw new IllegalStateException("유효한 bigFour Id 값이 아닙니다.");
             }
-            SessionWorkoutResponseDto responseDto = sessionWorkoutService.update(requestDto);
+            BigFourResonseDto responseDto = bigFourService.update(requestDto);
             return new Result(
                     new ExceptionDto(false),
-                    new MessageAndRedirection("SessionWorkout has updated."),
+                    new MessageAndRedirection("the bigFour has been updated."),
                     responseDto
             );
         } catch (IllegalStateException e) {
@@ -53,14 +53,14 @@ public class SessionWorkoutApiController {
         }
     }
 
-    @DeleteMapping("/api/sw")
-    public Result remove(@RequestParam final Long sessionWorkoutId) {
+    @DeleteMapping("/api/bigFour")
+    public Result remove(@RequestParam final Long bigFourId) {
         try {
-            validation(sessionWorkoutId);
-            sessionWorkoutService.remove(sessionWorkoutId);
+            validate(bigFourId);
+            bigFourService.remove(bigFourId);
             return new Result(
                     new ExceptionDto(false),
-                    new MessageAndRedirection("SessionWorkout has deleted.")
+                    new MessageAndRedirection("the bigFour has been deleted.")
             );
         } catch (IllegalStateException e) {
             return new Result(
@@ -71,9 +71,9 @@ public class SessionWorkoutApiController {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    private void validation(Long id) {
+    private void validate(Long id) throws IllegalStateException {
         if (id == null || id <= 0) {
-            throw new IllegalStateException("유효한 Id 값이 아닙니다.");
+            throw new IllegalStateException("유효한 bigFour Id 값이 아닙니다.");
         }
     }
 }

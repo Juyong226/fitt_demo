@@ -105,9 +105,8 @@ class MemberServiceTest {
 
         // when
         memberService.withdraw(memberId);
-        MemberResponseDto result = memberService.find(memberId);
 
         // then
-        assertEquals(null, result);
+        assertThrows(IllegalStateException.class, () -> memberService.find(memberId));
     }
 }

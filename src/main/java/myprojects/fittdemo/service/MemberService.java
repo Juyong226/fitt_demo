@@ -42,7 +42,7 @@ public class MemberService {
      * @param: String nickname
      * @return: Boolean
      * */
-    public boolean validateMember(String nickname) throws Exception {
+    public boolean validateMember(String nickname) throws IllegalStateException {
         if (nickname == null || nickname == "") {
             log.info("nickname is null !");
             throw new IllegalStateException("닉네임을 입력해주세요.");
@@ -54,7 +54,7 @@ public class MemberService {
         return true;
     }
 
-    public Long login(MemberRequestDto requestDto) throws Exception {
+    public Long login(MemberRequestDto requestDto) throws IllegalStateException {
         List<Member> findList = memberRepository.findByNickname(requestDto.getNickname());
         if (findList.size() == 0) {
             throw new IllegalStateException("존재하지 않는 회원입니다. 닉네임을 확인해주세요.");

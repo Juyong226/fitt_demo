@@ -53,7 +53,7 @@ public class RoundApiContorller {
     //------------------------------------------------------------------------------------------------------------------
     private void validation(Long id) {
         if (id == null && id <= 0) {
-            throw new IllegalStateException("유효하지 않은 Round Id 입니다.");
+            throw new IllegalStateException("유효한 Id 값이 아닙니다.");
         }
     }
 

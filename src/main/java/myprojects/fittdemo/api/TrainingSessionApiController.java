@@ -19,7 +19,7 @@ public class TrainingSessionApiController {
     public Result create(@RequestParam final Long recordId,
                          @RequestParam final String title) {
         try {
-            nullCheck(recordId, title);
+            validation(recordId, title);
             TrainingSessionSimpleDto responseDto = trainingSessionService.create(recordId, title);
             return new Result(
                     new ExceptionDto(false),
@@ -38,7 +38,7 @@ public class TrainingSessionApiController {
     public Result readDetail(@PathVariable final Long trainingSessionId,
                              @RequestParam final Integer sessionWorkoutCount) {
         try {
-            nullCheck(trainingSessionId);
+            validation(trainingSessionId);
             TrainingSessionResponseDto responseDto =
                     trainingSessionService.find(trainingSessionId, sessionWorkoutCount);
             return new Result(
@@ -58,7 +58,7 @@ public class TrainingSessionApiController {
     public Result update(@PathVariable final Long trainingSessionId,
                          @RequestParam final String title) {
         try {
-            nullCheck(trainingSessionId, title);
+            validation(trainingSessionId, title);
             TrainingSessionResponseDto responseDto =
                     trainingSessionService.update(trainingSessionId, title);
             return new Result(
@@ -77,7 +77,7 @@ public class TrainingSessionApiController {
     @DeleteMapping("/api/tss/{trainingSessionId}")
     public Result remove(@PathVariable final Long trainingSessionId) {
         try {
-            nullCheck(trainingSessionId);
+            validation(trainingSessionId);
             trainingSessionService.remove(trainingSessionId);
             return new Result(
                     new ExceptionDto(false),
@@ -92,14 +92,14 @@ public class TrainingSessionApiController {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    private void nullCheck(Long id) {
+    private void validation(Long id) {
         if (id == null || id <= 0) {
             throw new IllegalStateException("유효한 Id 값이 아닙니다.");
         }
     }
 
-    private void nullCheck(Long id, String title) {
-        nullCheck(id);
+    private void validation(Long id, String title) {
+        validation(id);
         if (title == null || title.equals(" ")) {
             throw new IllegalStateException("유효한 Title 값이 아닙니다.");
         }
